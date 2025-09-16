@@ -1,0 +1,841 @@
+---
+// src/pages/nosotros.astro
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+// Datos del equipo
+const equipo = [
+  {
+    nombre: "Ana García",
+    cargo: "CEO & Fundadora",
+    descripcion: "15+ años en consultoría empresarial. MBA en Gestión de Negocios.",
+    experiencia: "Ex-consultora en McKinsey & Company",
+    avatar: "👩‍💼",
+    linkedin: "#",
+    especialidades: ["Estrategia Empresarial", "Transformación Digital", "Liderazgo"]
+  },
+  {
+    nombre: "Carlos Rodríguez",
+    cargo: "CTO & Co-fundador",
+    descripcion: "Ingeniero de Software con 12+ años desarrollando soluciones enterprise.",
+    experiencia: "Ex-Senior Developer en Google",
+    avatar: "👨‍💻",
+    linkedin: "#",
+    especialidades: ["Arquitectura de Software", "Cloud Computing", "DevOps"]
+  },
+  {
+    nombre: "María López",
+    cargo: "Head of Marketing",
+    descripcion: "Especialista en marketing digital y crecimiento de startups.",
+    experiencia: "Ex-Growth Manager en Uber",
+    avatar: "👩‍🎨",
+    linkedin: "#",
+    especialidades: ["Marketing Digital", "Growth Hacking", "SEO/SEM"]
+  },
+  {
+    nombre: "Roberto Silva",
+    cargo: "Senior Consultant",
+    descripcion: "Consultor en procesos empresariales y optimización operacional.",
+    experiencia: "Ex-consultor en Deloitte",
+    avatar: "👨‍🏫",
+    linkedin: "#",
+    especialidades: ["Optimización de Procesos", "Lean Six Sigma", "Change Management"]
+  }
+];
+
+// Valores de la empresa
+const valores = [
+  {
+    titulo: "Excelencia",
+    descripcion: "Buscamos la perfección en cada proyecto que emprendemos",
+    icono: "⭐"
+  },
+  {
+    titulo: "Innovación",
+    descripcion: "Utilizamos las últimas tecnologías para crear soluciones únicas",
+    icono: "💡"
+  },
+  {
+    titulo: "Transparencia",
+    descripcion: "Comunicación clara y honesta en cada etapa del proceso",
+    icono: "🔍"
+  },
+  {
+    titulo: "Compromiso",
+    descripcion: "Nos dedicamos completamente al éxito de nuestros clientes",
+    icono: "🤝"
+  }
+];
+
+// Estadísticas de la empresa
+const estadisticas = [
+  { numero: "50+", texto: "Proyectos Completados" },
+  { numero: "95%", texto: "Clientes Satisfechos" },
+  { numero: "5", texto: "Años de Experiencia" },
+  { numero: "24/7", texto: "Soporte Disponible" }
+];
+
+// Timeline de la empresa
+const timeline = [
+  {
+    año: "2019",
+    titulo: "Fundación",
+    descripcion: "Ana y Carlos fundan MiEmpresa con la visión de democratizar la tecnología empresarial."
+  },
+  {
+    año: "2020",
+    titulo: "Primeros Clientes",
+    descripcion: "Completamos nuestros primeros 10 proyectos, estableciendo nuestra reputación en el mercado."
+  },
+  {
+    año: "2021",
+    titulo: "Expansión del Equipo",
+    descripcion: "Incorporamos especialistas en marketing y consultoría para ampliar nuestros servicios."
+  },
+  {
+    año: "2022",
+    titulo: "Certificaciones",
+    descripcion: "Obtenemos certificaciones en AWS, Google Cloud y metodologías ágiles."
+  },
+  {
+    año: "2023",
+    titulo: "50 Proyectos",
+    descripcion: "Alcanzamos el hito de 50 proyectos completados exitosamente."
+  },
+  {
+    año: "2024",
+    titulo: "Nuevas Oficinas",
+    descripcion: "Inauguramos nuestras nuevas oficinas en el centro de Lima."
+  }
+];
+---
+
+<Layout 
+  title="Nosotros - MiEmpresa" 
+  description="Conoce al equipo detrás de MiEmpresa. Expertos en consultoría y desarrollo con años de experiencia ayudando a empresas a crecer"
+>
+  <Header />
+  
+  <main>
+    <!-- Hero Section -->
+    <section class="about-hero">
+      <div class="container">
+        <h1>Conoce a MiEmpresa</h1>
+        <p>Somos un equipo apasionado por transformar ideas en soluciones tecnológicas que impulsan el crecimiento empresarial</p>
+      </div>
+    </section>
+
+    <!-- Mission & Vision Section -->
+    <section class="mission-section">
+      <div class="container">
+        <div class="mission-grid">
+          <div class="mission-item">
+            <h2>🎯 Nuestra Misión</h2>
+            <p>
+              Empoderar a las empresas con tecnología de vanguardia y consultoría estratégica, 
+              transformando sus procesos para lograr un crecimiento sostenible y competitivo en el mercado digital.
+            </p>
+          </div>
+          
+          <div class="mission-item">
+            <h2>🔮 Nuestra Visión</h2>
+            <p>
+              Ser la empresa de consultoría y desarrollo tecnológico de referencia en América Latina, 
+              reconocida por nuestra innovación, calidad y el impacto positivo en nuestros clientes.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+      <div class="container">
+        <h2>Nuestros Números Hablan</h2>
+        <div class="stats-grid">
+          {estadisticas.map((stat) => (
+            <div class="stat-item">
+              <div class="stat-number">{stat.numero}</div>
+              <div class="stat-text">{stat.texto}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values-section">
+      <div class="container">
+        <h2>Nuestros Valores</h2>
+        <div class="values-grid">
+          {valores.map((valor) => (
+            <div class="value-card">
+              <div class="value-icon">{valor.icono}</div>
+              <h3>{valor.titulo}</h3>
+              <p>{valor.descripcion}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+      <div class="container">
+        <h2>Nuestro Equipo</h2>
+        <p class="team-intro">
+          Conoce a los profesionales que hacen posible nuestro éxito
+        </p>
+        
+        <div class="team-grid">
+          {equipo.map((miembro) => (
+            <div class="team-card">
+              <div class="member-avatar">{miembro.avatar}</div>
+              <h3>{miembro.nombre}</h3>
+              <h4>{miembro.cargo}</h4>
+              <p class="member-description">{miembro.descripcion}</p>
+              <p class="member-experience">{miembro.experiencia}</p>
+              
+              <div class="member-specialties">
+                <h5>Especialidades:</h5>
+                <div class="specialty-tags">
+                  {miembro.especialidades.map((especialidad) => (
+                    <span class="specialty-tag">{especialidad}</span>
+                  ))}
+                </div>
+              </div>
+              
+              <a href={miembro.linkedin} class="member-linkedin">
+                💼 LinkedIn
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline-section">
+      <div class="container">
+        <h2>Nuestra Historia</h2>
+        <div class="timeline">
+          {timeline.map((evento, index) => (
+            <div class="timeline-item" data-aos="fade-up">
+              <div class="timeline-year">{evento.año}</div>
+              <div class="timeline-content">
+                <h3>{evento.titulo}</h3>
+                <p>{evento.descripcion}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-choose-section">
+      <div class="container">
+        <h2>¿Por qué elegirnos?</h2>
+        <div class="why-choose-grid">
+          <div class="why-choose-item">
+            <h3>🏆 Experiencia Comprobada</h3>
+            <p>Más de 50 proyectos exitosos en diversos sectores industriales.</p>
+          </div>
+          
+          <div class="why-choose-item">
+            <h3>🔧 Tecnología de Vanguardia</h3>
+            <p>Utilizamos las últimas herramientas y frameworks del mercado.</p>
+          </div>
+          
+          <div class="why-choose-item">
+            <h3>👥 Equipo Multidisciplinario</h3>
+            <p>Combinamos experiencia técnica con visión empresarial estratégica.</p>
+          </div>
+          
+          <div class="why-choose-item">
+            <h3>⚡ Agilidad en Entrega</h3>
+            <p>Metodologías ágiles que garantizan entregas rápidas y de calidad.</p>
+          </div>
+          
+          <div class="why-choose-item">
+            <h3>🎯 Enfoque en Resultados</h3>
+            <p>Nos comprometemos con el ROI y el crecimiento de tu negocio.</p>
+          </div>
+          
+          <div class="why-choose-item">
+            <h3>🛡️ Soporte Continuo</h3>
+            <p>Acompañamiento post-implementación y mantenimiento garantizado.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-content">
+          <h2>¿Quieres conocernos mejor?</h2>
+          <p>Agenda una reunión virtual gratuita y descubre cómo podemos ayudar a tu empresa</p>
+          <div class="cta-buttons">
+            <a href="/contacto" class="btn-primary">Agendar reunión</a>
+            <a href="/servicios" class="btn-secondary">Ver servicios</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</Layout>
+
+<style>
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* Hero Section */
+  .about-hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+    color: white;
+    padding: 5rem 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="80" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+    opacity: 0.3;
+  }
+
+  .about-hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+  }
+
+  .about-hero p {
+    font-size: 1.3rem;
+    opacity: 0.9;
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    line-height: 1.6;
+  }
+
+  /* Mission Section */
+  .mission-section {
+    padding: 5rem 0;
+    background: #f8fafc;
+  }
+
+  .mission-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .mission-item {
+    background: white;
+    padding: 3rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .mission-item:hover {
+    transform: translateY(-5px);
+  }
+
+  .mission-item h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #1e293b;
+  }
+
+  .mission-item p {
+    color: #64748b;
+    line-height: 1.7;
+    font-size: 1.1rem;
+  }
+
+  /* Stats Section */
+  .stats-section {
+    padding: 4rem 0;
+    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+    color: white;
+    text-align: center;
+  }
+
+  .stats-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    font-weight: 700;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-number {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #fbbf24;
+  }
+
+  .stat-text {
+    font-size: 1.1rem;
+    opacity: 0.9;
+  }
+
+  /* Values Section */
+  .values-section {
+    padding: 5rem 0;
+    background: white;
+  }
+
+  .values-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #1e293b;
+  }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+
+  .value-card {
+    text-align: center;
+    padding: 2rem;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+  }
+
+  .value-card:hover {
+    border-color: #2563eb;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.1);
+  }
+
+  .value-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .value-card h3 {
+    color: #1e293b;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .value-card p {
+    color: #64748b;
+    line-height: 1.6;
+  }
+
+  /* Team Section */
+  .team-section {
+    padding: 5rem 0;
+    background: #f8fafc;
+  }
+
+  .team-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #1e293b;
+  }
+
+  .team-intro {
+    text-align: center;
+    color: #64748b;
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+  }
+
+  .team-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .team-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .member-avatar {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    width: 6rem;
+    height: 6rem;
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .team-card h3 {
+    color: #1e293b;
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .team-card h4 {
+    color: #2563eb;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+
+  .member-description {
+    color: #64748b;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+
+  .member-experience {
+    color: #059669;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .member-specialties h5 {
+    color: #1e293b;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .specialty-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .specialty-tag {
+    background: #e0f2fe;
+    color: #0369a1;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .member-linkedin {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+
+  .member-linkedin:hover {
+    color: #1d4ed8;
+  }
+
+  /* Timeline Section */
+  .timeline-section {
+    padding: 5rem 0;
+    background: white;
+  }
+
+  .timeline-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #1e293b;
+  }
+
+  .timeline {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #e2e8f0;
+    transform: translateX(-50%);
+  }
+
+  .timeline-item {
+    display: flex;
+    margin-bottom: 3rem;
+    position: relative;
+  }
+
+  .timeline-item:nth-child(odd) {
+    flex-direction: row;
+  }
+
+  .timeline-item:nth-child(even) {
+    flex-direction: row-reverse;
+  }
+
+  .timeline-year {
+    background: #2563eb;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: bold;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    white-space: nowrap;
+  }
+
+  .timeline-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 45%;
+    margin-top: 2rem;
+  }
+
+  .timeline-item:nth-child(odd) .timeline-content {
+    margin-right: auto;
+    margin-left: 0;
+  }
+
+  .timeline-item:nth-child(even) .timeline-content {
+    margin-left: auto;
+    margin-right: 0;
+  }
+
+  .timeline-content h3 {
+    color: #1e293b;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline-content p {
+    color: #64748b;
+    line-height: 1.6;
+  }
+
+  /* Why Choose Section */
+  .why-choose-section {
+    padding: 5rem 0;
+    background: #f8fafc;
+  }
+
+  .why-choose-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #1e293b;
+  }
+
+  .why-choose-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+  }
+
+  .why-choose-item {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .why-choose-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+  }
+
+  .why-choose-item h3 {
+    color: #1e293b;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .why-choose-item p {
+    color: #64748b;
+    line-height: 1.6;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  .cta-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .cta-content p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary, .btn-secondary {
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    display: inline-block;
+  }
+
+  .btn-primary {
+    background: #2563eb;
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+  }
+
+  .btn-secondary:hover {
+    background: white;
+    color: #1e293b;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .about-hero h1 {
+      font-size: 2.5rem;
+    }
+
+    .about-hero p {
+      font-size: 1.1rem;
+    }
+
+    .mission-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .mission-item {
+      padding: 2rem;
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .timeline::before {
+      left: 2rem;
+    }
+
+    .timeline-item {
+      flex-direction: column !important;
+      padding-left: 4rem;
+    }
+
+    .timeline-year {
+      left: 2rem;
+      transform: translateX(-50%);
+    }
+
+    .timeline-content {
+      width: 100%;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+
+    .team-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .why-choose-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      padding: 0 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .stats-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .values-grid {
+      grid-template-columns: 1fr;
+    }
+  }
