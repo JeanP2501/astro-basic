@@ -1,0 +1,1583 @@
+---
+// src/pages/galeria.astro
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+// Datos de galería - En producción vendría de una API o CMS
+const proyectosGaleria = [
+  {
+    id: 1,
+    cliente: "Corporación ABC",
+    proyecto: "Sistema ERP Industrial",
+    fecha: "2024",
+    ubicacion: "Lima, Perú",
+    categoria: "Implementación",
+    descripcion: "Implementación completa de sistema ERP con integración IoT en planta manufacturera",
+    imagenPrincipal: "/images/galeria/abc-corp/principal.jpg",
+    imagenes: [
+      {
+        url: "/images/galeria/abc-corp/reunion-inicial.jpg",
+        titulo: "Reunión inicial del proyecto",
+        descripcion: "Nuestro equipo trabajando con el cliente para definir requerimientos"
+      },
+      {
+        url: "/images/galeria/abc-corp/instalacion-hardware.jpg",
+        titulo: "Instalación de hardware",
+        descripcion: "Configuración de servidores y equipos de red en el centro de datos"
+      },
+      {
+        url: "/images/galeria/abc-corp/capacitacion-usuarios.jpg",
+        titulo: "Capacitación de usuarios",
+        descripcion: "Sesiones de entrenamiento para el personal operativo"
+      },
+      {
+        url: "/images/galeria/abc-corp/monitoreo-produccion.jpg",
+        titulo: "Centro de monitoreo",
+        descripcion: "Dashboard en tiempo real del sistema de producción"
+      },
+      {
+        url: "/images/galeria/abc-corp/equipo-trabajo.jpg",
+        titulo: "Equipo de trabajo",
+        descripcion: "Nuestros desarrolladores y consultores en acción"
+      },
+      {
+        url: "/images/galeria/abc-corp/entrega-final.jpg",
+        titulo: "Entrega del proyecto",
+        descripcion: "Ceremonia de entrega y go-live del sistema"
+      }
+    ]
+  },
+  {
+    id: 2,
+    cliente: "TechSolutions Inc.",
+    proyecto: "Plataforma Fintech",
+    fecha: "2023",
+    ubicacion: "Bogotá, Colombia",
+    categoria: "Desarrollo",
+    descripcion: "Desarrollo de plataforma de pagos digitales y aplicación móvil",
+    imagenPrincipal: "/images/galeria/techsolutions/principal.jpg",
+    imagenes: [
+      {
+        url: "/images/galeria/techsolutions/planning-session.jpg",
+        titulo: "Sesión de planificación",
+        descripcion: "Definiendo la arquitectura de la plataforma fintech"
+      },
+      {
+        url: "/images/galeria/techsolutions/desarrollo-frontend.jpg",
+        titulo: "Desarrollo frontend",
+        descripcion: "Nuestro equipo frontend trabajando en la interfaz de usuario"
+      },
+      {
+        url: "/images/galeria/techsolutions/testing-app.jpg",
+        titulo: "Testing de aplicación",
+        descripcion: "Pruebas exhaustivas de la aplicación móvil"
+      },
+      {
+        url: "/images/galeria/techsolutions/integracion-pagos.jpg",
+        titulo: "Integración de pagos",
+        descripcion: "Configuración de pasarelas de pago seguras"
+      },
+      {
+        url: "/images/galeria/techsolutions/demo-cliente.jpg",
+        titulo: "Demo al cliente",
+        descripcion: "Presentación de la plataforma al equipo directivo"
+      }
+    ]
+  },
+  {
+    id: 3,
+    cliente: "RetailMax",
+    proyecto: "E-commerce Omnicanal",
+    fecha: "2023",
+    ubicacion: "México DF, México",
+    categoria: "E-commerce",
+    descripcion: "Implementación de tienda online integrada con todas las sucursales físicas",
+    imagenPrincipal: "/images/galeria/retailmax/principal.jpg",
+    imagenes: [
+      {
+        url: "/images/galeria/retailmax/analisis-requerimientos.jpg",
+        titulo: "Análisis de requerimientos",
+        descripcion: "Reunión con stakeholders para mapear procesos actuales"
+      },
+      {
+        url: "/images/galeria/retailmax/diseño-ux.jpg",
+        titulo: "Diseño UX/UI",
+        descripcion: "Creación de wireframes y prototipos de la tienda online"
+      },
+      {
+        url: "/images/galeria/retailmax/desarrollo-backend.jpg",
+        titulo: "Desarrollo backend",
+        descripcion: "Programación de APIs y servicios del e-commerce"
+      },
+      {
+        url: "/images/galeria/retailmax/integracion-pos.jpg",
+        titulo: "Integración POS",
+        descripcion: "Conectando sistemas de punto de venta con la plataforma"
+      },
+      {
+        url: "/images/galeria/retailmax/capacitacion-staff.jpg",
+        titulo: "Capacitación de personal",
+        descripcion: "Entrenamiento del equipo de ventas en la nueva plataforma"
+      },
+      {
+        url: "/images/galeria/retailmax/lanzamiento.jpg",
+        titulo: "Lanzamiento oficial",
+        descripcion: "Evento de lanzamiento de la nueva tienda online"
+      }
+    ]
+  },
+  {
+    id: 4,
+    cliente: "AgroTech Solutions",
+    proyecto: "Sistema IoT Agrícola",
+    fecha: "2024",
+    ubicacion: "Santiago, Chile",
+    categoria: "IoT",
+    descripcion: "Implementación de sensores IoT para monitoreo de cultivos en tiempo real",
+    imagenPrincipal: "/images/galeria/agrotech/principal.jpg",
+    imagenes: [
+      {
+        url: "/images/galeria/agrotech/instalacion-sensores.jpg",
+        titulo: "Instalación de sensores",
+        descripcion: "Colocación de sensores IoT en el campo de cultivo"
+      },
+      {
+        url: "/images/galeria/agrotech/configuracion-red.jpg",
+        titulo: "Configuración de red",
+        descripcion: "Establecimiento de conectividad LoRaWAN en la finca"
+      },
+      {
+        url: "/images/galeria/agrotech/dashboard-agricola.jpg",
+        titulo: "Dashboard agrícola",
+        descripcion: "Interfaz de monitoreo de condiciones del cultivo"
+      },
+      {
+        url: "/images/galeria/agrotech/capacitacion-agricultores.jpg",
+        titulo: "Capacitación a agricultores",
+        descripcion: "Enseñando el uso del sistema a los trabajadores del campo"
+      }
+    ]
+  },
+  {
+    id: 5,
+    cliente: "HealthCare Plus",
+    proyecto: "Sistema Hospitalario",
+    fecha: "2022",
+    ubicacion: "Quito, Ecuador",
+    categoria: "Salud",
+    descripcion: "Implementación de sistema integral de gestión hospitalaria y telemedicina",
+    imagenPrincipal: "/images/galeria/healthcare/principal.jpg",
+    imagenes: [
+      {
+        url: "/images/galeria/healthcare/instalacion-equipos.jpg",
+        titulo: "Instalación de equipos",
+        descripcion: "Configuración de equipos médicos con conectividad IoT"
+      },
+      {
+        url: "/images/galeria/healthcare/capacitacion-medicos.jpg",
+        titulo: "Capacitación médica",
+        descripcion: "Entrenamiento del personal médico en el nuevo sistema"
+      },
+      {
+        url: "/images/galeria/healthcare/consulta-virtual.jpg",
+        titulo: "Consulta virtual",
+        descripcion: "Primera sesión de telemedicina en funcionamiento"
+      },
+      {
+        url: "/images/galeria/healthcare/centro-monitoreo.jpg",
+        titulo: "Centro de monitoreo",
+        descripcion: "Sala de control para supervisión de pacientes remotos"
+      },
+      {
+        url: "/images/galeria/healthcare/certificacion.jpg",
+        titulo: "Certificación del sistema",
+        descripcion: "Validación y certificación médica del sistema implementado"
+      }
+    ]
+  }
+];
+
+// Categorías para filtrado
+const categorias = ["Todas", ...new Set(proyectosGaleria.map(p => p.categoria))];
+
+// Años disponibles
+const años = ["Todos", ...new Set(proyectosGaleria.map(p => p.fecha))].sort().reverse();
+---
+
+<Layout 
+  title="Galería - MiEmpresa" 
+  description="Galería de fotos de nuestros proyectos y equipo de trabajo en acción con clientes de diferentes industrias"
+>
+  <Header />
+  
+  <main>
+    <!-- Hero Section -->
+    <section class="gallery-hero">
+      <div class="container">
+        <h1>Galería de Proyectos</h1>
+        <p>Descubre cómo trabajamos con nuestros clientes para transformar sus negocios</p>
+      </div>
+    </section>
+
+    <!-- Filters Section -->
+    <section class="filters-section">
+      <div class="container">
+        <div class="filters-container">
+          <div class="filter-group">
+            <label>Categoría:</label>
+            <div class="filter-buttons">
+              {categorias.map((categoria) => (
+                <button 
+                  class={`filter-btn ${categoria === 'Todas' ? 'active' : ''}`}
+                  data-filter="categoria"
+                  data-value={categoria}
+                >
+                  {categoria}
+                </button>
+              ))}
+            </div>
+          </div>
+          
+          <div class="filter-group">
+            <label>Año:</label>
+            <div class="filter-buttons">
+              {años.map((año) => (
+                <button 
+                  class={`filter-btn ${año === 'Todos' ? 'active' : ''}`}
+                  data-filter="año"
+                  data-value={año}
+                >
+                  {año}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Project Carousel -->
+    <section class="featured-carousel-section">
+      <div class="container">
+        <h2>Proyectos Destacados</h2>
+        <div class="featured-carousel-container">
+          <div class="featured-carousel" id="featuredCarousel">
+            {proyectosGaleria.slice(0, 3).map((proyecto, index) => (
+              <div class={`featured-slide ${index === 0 ? 'active' : ''}`} data-slide={index}>
+                <div class="featured-image">
+                  <img src={proyecto.imagenPrincipal} alt={proyecto.proyecto} />
+                  <div class="featured-overlay">
+                    <div class="featured-content">
+                      <h3>{proyecto.cliente}</h3>
+                      <h4>{proyecto.proyecto}</h4>
+                      <p>{proyecto.descripcion}</p>
+                      <div class="featured-meta">
+                        <span>📍 {proyecto.ubicacion}</span>
+                        <span>📅 {proyecto.fecha}</span>
+                        <span>🏷️ {proyecto.categoria}</span>
+                      </div>
+                      <button 
+                        class="btn-primary view-gallery-btn" 
+                        data-project-id={proyecto.id}
+                      >
+                        Ver galería completa
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          <div class="featured-carousel-controls">
+            <button class="carousel-btn prev" id="featuredPrevBtn">❮</button>
+            <button class="carousel-btn next" id="featuredNextBtn">❯</button>
+          </div>
+          
+          <div class="featured-carousel-indicators">
+            {proyectosGaleria.slice(0, 3).map((_, index) => (
+              <button class={`indicator ${index === 0 ? 'active' : ''}`} data-slide={index}></button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Gallery Grid -->
+    <section class="projects-gallery">
+      <div class="container">
+        <h2>Todos los Proyectos</h2>
+        
+        <div class="projects-grid" id="projectsGrid">
+          {proyectosGaleria.map((proyecto) => (
+            <div 
+              class="project-card"
+              data-categoria={proyecto.categoria}
+              data-año={proyecto.fecha}
+              data-project-id={proyecto.id}
+            >
+              <div class="project-image-container">
+                <img 
+                  src={proyecto.imagenPrincipal} 
+                  alt={proyecto.proyecto}
+                  class="project-image"
+                  loading="lazy"
+                />
+                <div class="project-overlay">
+                  <div class="project-info">
+                    <h3>{proyecto.cliente}</h3>
+                    <h4>{proyecto.proyecto}</h4>
+                    <p>{proyecto.descripcion}</p>
+                  </div>
+                  <div class="project-actions">
+                    <button 
+                      class="action-btn view-btn" 
+                      data-project-id={proyecto.id}
+                      title="Ver galería completa"
+                    >
+                      👁️ Ver
+                    </button>
+                    <button 
+                      class="action-btn info-btn" 
+                      data-project-id={proyecto.id}
+                      title="Información del proyecto"
+                    >
+                      ℹ️ Info
+                    </button>
+                  </div>
+                </div>
+                
+                <div class="project-meta-overlay">
+                  <span class="project-category">{proyecto.categoria}</span>
+                  <span class="project-year">{proyecto.fecha}</span>
+                </div>
+                
+                <div class="project-photo-count">
+                  📸 {proyecto.imagenes.length} fotos
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div id="lightboxModal" class="lightbox-modal">
+      <div class="lightbox-content">
+        <span class="lightbox-close">&times;</span>
+        
+        <div class="lightbox-header">
+          <h2 id="lightboxTitle">Título del Proyecto</h2>
+          <div class="lightbox-info">
+            <span id="lightboxClient">Cliente</span>
+            <span id="lightboxDate">Fecha</span>
+            <span id="lightboxLocation">Ubicación</span>
+          </div>
+        </div>
+        
+        <div class="lightbox-gallery">
+          <div class="lightbox-main-image">
+            <img id="lightboxMainImage" src="" alt="">
+            <div class="lightbox-nav">
+              <button class="lightbox-btn prev" id="lightboxPrev">❮</button>
+              <button class="lightbox-btn next" id="lightboxNext">❯</button>
+            </div>
+          </div>
+          
+          <div class="lightbox-thumbnails" id="lightboxThumbnails">
+            <!-- Thumbnails will be generated dynamically -->
+          </div>
+          
+          <div class="lightbox-description">
+            <h3 id="lightboxImageTitle">Título de la imagen</h3>
+            <p id="lightboxImageDescription">Descripción de la imagen</p>
+          </div>
+        </div>
+        
+        <div class="lightbox-counter">
+          <span id="lightboxCounter">1 / 6</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-content">
+          <h2>¿Te gustaría ver tu proyecto aquí?</h2>
+          <p>Trabajemos juntos para crear la próxima historia de éxito de tu empresa</p>
+          <div class="cta-buttons">
+            <a href="/contacto" class="btn-primary">Iniciar mi proyecto</a>
+            <a href="/clientes" class="btn-secondary">Ver más casos de éxito</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</Layout>
+
+<style>
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* Gallery Hero */
+  .gallery-hero {
+    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  .gallery-hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  .gallery-hero p {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Filters Section */
+  .filters-section {
+    padding: 2rem 0;
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .filters-container {
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .filter-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-group label {
+    font-weight: 600;
+    color: #1e293b;
+    white-space: nowrap;
+  }
+
+  .filter-buttons {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    background: white;
+    border: 2px solid #e2e8f0;
+    color: #64748b;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+
+  .filter-btn:hover,
+  .filter-btn.active {
+    background: #2563eb;
+    border-color: #2563eb;
+    color: white;
+    transform: translateY(-1px);
+  }
+
+  /* Featured Carousel */
+  .featured-carousel-section {
+    padding: 4rem 0;
+    background: white;
+  }
+
+  .featured-carousel-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #1e293b;
+  }
+
+  .featured-carousel-container {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .featured-carousel {
+    position: relative;
+    height: 500px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .featured-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+
+  .featured-slide.active {
+    opacity: 1;
+  }
+
+  .featured-image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .featured-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .featured-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 100%);
+    display: flex;
+    align-items: center;
+    padding: 3rem;
+  }
+
+  .featured-content {
+    color: white;
+    max-width: 500px;
+  }
+
+  .featured-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #fbbf24;
+  }
+
+  .featured-content h4 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  .featured-content p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+    line-height: 1.6;
+  }
+
+  .featured-meta {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .featured-meta span {
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+
+  .view-gallery-btn {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .view-gallery-btn:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(37, 99, 235, 0.3);
+  }
+
+  .featured-carousel-controls {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2rem;
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  .carousel-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    pointer-events: all;
+    transition: all 0.3s;
+    backdrop-filter: blur(10px);
+  }
+
+  .carousel-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+  }
+
+  .featured-carousel-indicators {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.75rem;
+    z-index: 3;
+  }
+
+  .indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid white;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .indicator.active,
+  .indicator:hover {
+    background: white;
+    transform: scale(1.2);
+  }
+
+  /* Projects Gallery */
+  .projects-gallery {
+    padding: 4rem 0;
+    background: #f8fafc;
+  }
+
+  .projects-gallery h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #1e293b;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+  }
+
+  .project-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .project-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .project-card.hidden {
+    display: none;
+  }
+
+  .project-image-container {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+  }
+
+  .project-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .project-card:hover .project-image {
+    transform: scale(1.05);
+  }
+
+  .project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .project-card:hover .project-overlay {
+    opacity: 1;
+  }
+
+  .project-info {
+    color: white;
+    margin-bottom: 1.5rem;
+  }
+
+  .project-info h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: #fbbf24;
+  }
+
+  .project-info h4 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .project-info p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    line-height: 1.5;
+  }
+
+  .project-actions {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .action-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 2px solid white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: all 0.3s;
+    backdrop-filter: blur(10px);
+  }
+
+  .action-btn:hover {
+    background: white;
+    color: #1e293b;
+  }
+
+  .project-meta-overlay {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .project-category,
+  .project-year {
+    background: rgba(37, 99, 235, 0.9);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    backdrop-filter: blur(10px);
+  }
+
+  .project-year {
+    background: rgba(251, 191, 36, 0.9);
+    color: #1e293b;
+  }
+
+  .project-photo-count {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    backdrop-filter: blur(10px);
+  }
+
+  /* Lightbox Modal */
+  .lightbox-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    overflow-y: auto;
+  }
+
+  .lightbox-content {
+    background-color: #1e293b;
+    margin: 2% auto;
+    padding: 0;
+    border-radius: 12px;
+    width: 95%;
+    max-width: 1200px;
+    color: white;
+    position: relative;
+  }
+
+  .lightbox-close {
+    color: #aaa;
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 2001;
+  }
+
+  .lightbox-close:hover {
+    color: white;
+  }
+
+  .lightbox-header {
+    padding: 2rem;
+    border-bottom: 1px solid #374151;
+  }
+
+  .lightbox-header h2 {
+    margin-bottom: 1rem;
+    color: #fbbf24;
+  }
+
+  .lightbox-info {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .lightbox-info span {
+    color: #94a3b8;
+    font-size: 0.9rem;
+  }
+
+  .lightbox-gallery {
+    padding: 2rem;
+  }
+
+  .lightbox-main-image {
+    position: relative;
+    margin-bottom: 2rem;
+  }
+
+  .lightbox-main-image img {
+    width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+
+  .lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem;
+    pointer-events: none;
+  }
+
+  .lightbox-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    pointer-events: all;
+    transition: all 0.3s;
+    backdrop-filter: blur(10px);
+  }
+
+  .lightbox-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .lightbox-thumbnails {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+  }
+
+  .lightbox-thumbnail {
+    width: 100px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: all 0.3s;
+    flex-shrink: 0;
+    border: 2px solid transparent;
+  }
+
+  .lightbox-thumbnail:hover,
+  .lightbox-thumbnail.active {
+    opacity: 1;
+    border-color: #2563eb;
+  }
+
+  .lightbox-description {
+    background: #374151;
+    padding: 1.5rem;
+    border-radius: 8px;
+  }
+
+  .lightbox-description h3 {
+    margin-bottom: 0.5rem;
+    color: #fbbf24;
+  }
+
+  .lightbox-description p {
+    color: #d1d5db;
+    line-height: 1.6;
+  }
+
+  .lightbox-counter {
+    position: absolute;
+    bottom: 1rem;
+    right: 2rem;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  .cta-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .cta-content p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-primary {
+    background: #1e293b;
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: #0f172a;
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+  }
+
+  .btn-secondary:hover {
+    background: white;
+    color: #2563eb;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .gallery-hero h1 {
+      font-size: 2rem;
+    }
+
+    .filters-container {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.5rem;
+    }
+
+    .filter-group {
+      width: 100%;
+    }
+
+    .filter-buttons {
+      justify-content: flex-start;
+    }
+
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .featured-carousel {
+      height: 400px;
+    }
+
+    .featured-content {
+      padding: 1.5rem;
+    }
+
+    .featured-content h4 {
+      font-size: 1.5rem;
+    }
+
+    .featured-meta {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .lightbox-content {
+      width: 98%;
+      margin: 1% auto;
+    }
+
+    .lightbox-header {
+      padding: 1.5rem;
+    }
+
+    .lightbox-gallery {
+      padding: 1.5rem;
+    }
+
+    .lightbox-info {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      padding: 0 1rem;
+    }
+  }
+
+  /* Add placeholder styling for missing images */
+  .project-image,
+  .featured-image img,
+  .lightbox-main-image img {
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+    font-size: 3rem;
+  }
+
+  .project-image::before,
+  .featured-image img::before {
+    content: "📸";
+  }
+</style>
+
+<script>
+  // Datos hardcodeados para evitar problemas de hidratación
+  const proyectosData = [
+    {
+      id: 1,
+      cliente: "Corporación ABC",
+      proyecto: "Sistema ERP Industrial",
+      fecha: "2024",
+      ubicacion: "Lima, Perú",
+      categoria: "Implementación",
+      descripcion: "Implementación completa de sistema ERP con integración IoT en planta manufacturera",
+      imagenPrincipal: "/images/galeria/abc-corp/principal.jpg",
+      imagenes: [
+        {
+          url: "/images/galeria/abc-corp/reunion-inicial.jpg",
+          titulo: "Reunión inicial del proyecto",
+          descripcion: "Nuestro equipo trabajando con el cliente para definir requerimientos"
+        },
+        {
+          url: "/images/galeria/abc-corp/instalacion-hardware.jpg",
+          titulo: "Instalación de hardware",
+          descripcion: "Configuración de servidores y equipos de red en el centro de datos"
+        },
+        {
+          url: "/images/galeria/abc-corp/capacitacion-usuarios.jpg",
+          titulo: "Capacitación de usuarios",
+          descripcion: "Sesiones de entrenamiento para el personal operativo"
+        },
+        {
+          url: "/images/galeria/abc-corp/monitoreo-produccion.jpg",
+          titulo: "Centro de monitoreo",
+          descripcion: "Dashboard en tiempo real del sistema de producción"
+        },
+        {
+          url: "/images/galeria/abc-corp/equipo-trabajo.jpg",
+          titulo: "Equipo de trabajo",
+          descripcion: "Nuestros desarrolladores y consultores en acción"
+        },
+        {
+          url: "/images/galeria/abc-corp/entrega-final.jpg",
+          titulo: "Entrega del proyecto",
+          descripcion: "Ceremonia de entrega y go-live del sistema"
+        }
+      ]
+    },
+    {
+      id: 2,
+      cliente: "TechSolutions Inc.",
+      proyecto: "Plataforma Fintech",
+      fecha: "2023",
+      ubicacion: "Bogotá, Colombia",
+      categoria: "Desarrollo",
+      descripcion: "Desarrollo de plataforma de pagos digitales y aplicación móvil",
+      imagenPrincipal: "/images/galeria/techsolutions/principal.jpg",
+      imagenes: [
+        {
+          url: "/images/galeria/techsolutions/planning-session.jpg",
+          titulo: "Sesión de planificación",
+          descripcion: "Definiendo la arquitectura de la plataforma fintech"
+        },
+        {
+          url: "/images/galeria/techsolutions/desarrollo-frontend.jpg",
+          titulo: "Desarrollo frontend",
+          descripcion: "Nuestro equipo frontend trabajando en la interfaz de usuario"
+        },
+        {
+          url: "/images/galeria/techsolutions/testing-app.jpg",
+          titulo: "Testing de aplicación",
+          descripcion: "Pruebas exhaustivas de la aplicación móvil"
+        },
+        {
+          url: "/images/galeria/techsolutions/integracion-pagos.jpg",
+          titulo: "Integración de pagos",
+          descripcion: "Configuración de pasarelas de pago seguras"
+        },
+        {
+          url: "/images/galeria/techsolutions/demo-cliente.jpg",
+          titulo: "Demo al cliente",
+          descripcion: "Presentación de la plataforma al equipo directivo"
+        }
+      ]
+    },
+    {
+      id: 3,
+      cliente: "RetailMax",
+      proyecto: "E-commerce Omnicanal",
+      fecha: "2023",
+      ubicacion: "México DF, México",
+      categoria: "E-commerce",
+      descripcion: "Implementación de tienda online integrada con todas las sucursales físicas",
+      imagenPrincipal: "/images/galeria/retailmax/principal.jpg",
+      imagenes: [
+        {
+          url: "/images/galeria/retailmax/analisis-requerimientos.jpg",
+          titulo: "Análisis de requerimientos",
+          descripcion: "Reunión con stakeholders para mapear procesos actuales"
+        },
+        {
+          url: "/images/galeria/retailmax/diseño-ux.jpg",
+          titulo: "Diseño UX/UI",
+          descripcion: "Creación de wireframes y prototipos de la tienda online"
+        },
+        {
+          url: "/images/galeria/retailmax/desarrollo-backend.jpg",
+          titulo: "Desarrollo backend",
+          descripcion: "Programación de APIs y servicios del e-commerce"
+        },
+        {
+          url: "/images/galeria/retailmax/integracion-pos.jpg",
+          titulo: "Integración POS",
+          descripcion: "Conectando sistemas de punto de venta con la plataforma"
+        },
+        {
+          url: "/images/galeria/retailmax/capacitacion-staff.jpg",
+          titulo: "Capacitación de personal",
+          descripcion: "Entrenamiento del equipo de ventas en la nueva plataforma"
+        },
+        {
+          url: "/images/galeria/retailmax/lanzamiento.jpg",
+          titulo: "Lanzamiento oficial",
+          descripcion: "Evento de lanzamiento de la nueva tienda online"
+        }
+      ]
+    },
+    {
+      id: 4,
+      cliente: "AgroTech Solutions",
+      proyecto: "Sistema IoT Agrícola",
+      fecha: "2024",
+      ubicacion: "Santiago, Chile",
+      categoria: "IoT",
+      descripcion: "Implementación de sensores IoT para monitoreo de cultivos en tiempo real",
+      imagenPrincipal: "/images/galeria/agrotech/principal.jpg",
+      imagenes: [
+        {
+          url: "/images/galeria/agrotech/instalacion-sensores.jpg",
+          titulo: "Instalación de sensores",
+          descripcion: "Colocación de sensores IoT en el campo de cultivo"
+        },
+        {
+          url: "/images/galeria/agrotech/configuracion-red.jpg",
+          titulo: "Configuración de red",
+          descripcion: "Establecimiento de conectividad LoRaWAN en la finca"
+        },
+        {
+          url: "/images/galeria/agrotech/dashboard-agricola.jpg",
+          titulo: "Dashboard agrícola",
+          descripcion: "Interfaz de monitoreo de condiciones del cultivo"
+        },
+        {
+          url: "/images/galeria/agrotech/capacitacion-agricultores.jpg",
+          titulo: "Capacitación a agricultores",
+          descripcion: "Enseñando el uso del sistema a los trabajadores del campo"
+        }
+      ]
+    },
+    {
+      id: 5,
+      cliente: "HealthCare Plus",
+      proyecto: "Sistema Hospitalario",
+      fecha: "2022",
+      ubicacion: "Quito, Ecuador",
+      categoria: "Salud",
+      descripcion: "Implementación de sistema integral de gestión hospitalaria y telemedicina",
+      imagenPrincipal: "/images/galeria/healthcare/principal.jpg",
+      imagenes: [
+        {
+          url: "/images/galeria/healthcare/instalacion-equipos.jpg",
+          titulo: "Instalación de equipos",
+          descripcion: "Configuración de equipos médicos con conectividad IoT"
+        },
+        {
+          url: "/images/galeria/healthcare/capacitacion-medicos.jpg",
+          titulo: "Capacitación médica",
+          descripcion: "Entrenamiento del personal médico en el nuevo sistema"
+        },
+        {
+          url: "/images/galeria/healthcare/consulta-virtual.jpg",
+          titulo: "Consulta virtual",
+          descripcion: "Primera sesión de telemedicina en funcionamiento"
+        },
+        {
+          url: "/images/galeria/healthcare/centro-monitoreo.jpg",
+          titulo: "Centro de monitoreo",
+          descripcion: "Sala de control para supervisión de pacientes remotos"
+        },
+        {
+          url: "/images/galeria/healthcare/certificacion.jpg",
+          titulo: "Certificación del sistema",
+          descripcion: "Validación y certificación médica del sistema implementado"
+        }
+      ]
+    }
+  ];
+
+  document.addEventListener('DOMContentLoaded', () => {
+    let currentFilters = {
+      categoria: 'Todas',
+      año: 'Todos'
+    };
+
+    // Filter functionality
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const filterType = button.getAttribute('data-filter');
+        const filterValue = button.getAttribute('data-value');
+
+        // Remove active class from buttons of the same type
+        document.querySelectorAll(`[data-filter="${filterType}"]`).forEach(btn => 
+          btn.classList.remove('active')
+        );
+        
+        // Add active class to clicked button
+        button.classList.add('active');
+        
+        // Update current filters
+        currentFilters[filterType] = filterValue;
+        
+        // Apply filters
+        applyFilters();
+      });
+    });
+
+    function applyFilters() {
+      projectCards.forEach(card => {
+        const cardCategoria = card.getAttribute('data-categoria');
+        const cardAño = card.getAttribute('data-año');
+        
+        const matchesCategoria = currentFilters.categoria === 'Todas' || cardCategoria === currentFilters.categoria;
+        const matchesAño = currentFilters.año === 'Todos' || cardAño === currentFilters.año;
+        
+        if (matchesCategoria && matchesAño) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    // Featured Carousel functionality
+    const featuredCarousel = document.getElementById('featuredCarousel');
+    const featuredSlides = featuredCarousel.querySelectorAll('.featured-slide');
+    const featuredPrevBtn = document.getElementById('featuredPrevBtn');
+    const featuredNextBtn = document.getElementById('featuredNextBtn');
+    const featuredIndicators = document.querySelectorAll('.featured-carousel-indicators .indicator');
+    
+    let currentFeaturedSlide = 0;
+
+    function showFeaturedSlide(index) {
+      featuredSlides.forEach(slide => slide.classList.remove('active'));
+      featuredIndicators.forEach(indicator => indicator.classList.remove('active'));
+      
+      featuredSlides[index].classList.add('active');
+      featuredIndicators[index].classList.add('active');
+      currentFeaturedSlide = index;
+    }
+
+    function nextFeaturedSlide() {
+      const next = (currentFeaturedSlide + 1) % featuredSlides.length;
+      showFeaturedSlide(next);
+    }
+
+    function prevFeaturedSlide() {
+      const prev = (currentFeaturedSlide - 1 + featuredSlides.length) % featuredSlides.length;
+      showFeaturedSlide(prev);
+    }
+
+    // Featured carousel event listeners
+    featuredNextBtn.addEventListener('click', nextFeaturedSlide);
+    featuredPrevBtn.addEventListener('click', prevFeaturedSlide);
+
+    featuredIndicators.forEach((indicator, index) => {
+      indicator.addEventListener('click', () => showFeaturedSlide(index));
+    });
+
+    // Auto-play featured carousel
+    setInterval(nextFeaturedSlide, 5000);
+
+    // Lightbox functionality
+    const lightboxModal = document.getElementById('lightboxModal');
+    const lightboxClose = document.querySelector('.lightbox-close');
+    const lightboxMainImage = document.getElementById('lightboxMainImage');
+    const lightboxTitle = document.getElementById('lightboxTitle');
+    const lightboxClient = document.getElementById('lightboxClient');
+    const lightboxDate = document.getElementById('lightboxDate');
+    const lightboxLocation = document.getElementById('lightboxLocation');
+    const lightboxImageTitle = document.getElementById('lightboxImageTitle');
+    const lightboxImageDescription = document.getElementById('lightboxImageDescription');
+    const lightboxCounter = document.getElementById('lightboxCounter');
+    const lightboxThumbnails = document.getElementById('lightboxThumbnails');
+    const lightboxPrev = document.getElementById('lightboxPrev');
+    const lightboxNext = document.getElementById('lightboxNext');
+
+    let currentProject = null;
+    let currentImageIndex = 0;
+
+    // Gallery button functionality
+    const viewGalleryButtons = document.querySelectorAll('.view-gallery-btn, .view-btn');
+    viewGalleryButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const projectId = parseInt(button.getAttribute('data-project-id'));
+        openLightbox(projectId);
+      });
+    });
+
+    // Info button functionality
+    const infoButtons = document.querySelectorAll('.info-btn');
+    infoButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const projectId = parseInt(button.getAttribute('data-project-id'));
+        showProjectInfo(projectId);
+      });
+    });
+
+    function openLightbox(projectId, imageIndex = 0) {
+      currentProject = proyectosData.find(p => p.id === projectId);
+      if (!currentProject) return;
+
+      currentImageIndex = imageIndex;
+      
+      // Set project info
+      lightboxTitle.textContent = currentProject.proyecto;
+      lightboxClient.textContent = `👤 ${currentProject.cliente}`;
+      lightboxDate.textContent = `📅 ${currentProject.fecha}`;
+      lightboxLocation.textContent = `📍 ${currentProject.ubicacion}`;
+      
+      // Generate thumbnails
+      lightboxThumbnails.innerHTML = '';
+      currentProject.imagenes.forEach((imagen, index) => {
+        const thumbnail = document.createElement('img');
+        thumbnail.src = imagen.url;
+        thumbnail.alt = imagen.titulo;
+        thumbnail.className = `lightbox-thumbnail ${index === imageIndex ? 'active' : ''}`;
+        thumbnail.addEventListener('click', () => showLightboxImage(index));
+        lightboxThumbnails.appendChild(thumbnail);
+      });
+      
+      // Show first image
+      showLightboxImage(imageIndex);
+      
+      // Show modal
+      lightboxModal.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function showLightboxImage(index) {
+      if (!currentProject) return;
+      
+      currentImageIndex = index;
+      const imagen = currentProject.imagenes[index];
+      
+      lightboxMainImage.src = imagen.url;
+      lightboxMainImage.alt = imagen.titulo;
+      lightboxImageTitle.textContent = imagen.titulo;
+      lightboxImageDescription.textContent = imagen.descripcion;
+      lightboxCounter.textContent = `${index + 1} / ${currentProject.imagenes.length}`;
+      
+      // Update active thumbnail
+      document.querySelectorAll('.lightbox-thumbnail').forEach((thumb, i) => {
+        thumb.classList.toggle('active', i === index);
+      });
+    }
+
+    function nextLightboxImage() {
+      if (!currentProject) return;
+      const next = (currentImageIndex + 1) % currentProject.imagenes.length;
+      showLightboxImage(next);
+    }
+
+    function prevLightboxImage() {
+      if (!currentProject) return;
+      const prev = (currentImageIndex - 1 + currentProject.imagenes.length) % currentProject.imagenes.length;
+      showLightboxImage(prev);
+    }
+
+    // Lightbox navigation
+    lightboxNext.addEventListener('click', nextLightboxImage);
+    lightboxPrev.addEventListener('click', prevLightboxImage);
+
+    // Close lightbox
+    lightboxClose.addEventListener('click', closeLightbox);
+    
+    window.addEventListener('click', (e) => {
+      if (e.target === lightboxModal) {
+        closeLightbox();
+      }
+    });
+
+    function closeLightbox() {
+      lightboxModal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+      currentProject = null;
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (lightboxModal.style.display === 'block') {
+        if (e.key === 'ArrowLeft') {
+          prevLightboxImage();
+        } else if (e.key === 'ArrowRight') {
+          nextLightboxImage();
+        } else if (e.key === 'Escape') {
+          closeLightbox();
+        }
+      }
+    });
+
+    function showProjectInfo(projectId) {
+      const proyecto = proyectosData.find(p => p.id === projectId);
+      if (!proyecto) return;
+      
+      alert(`Proyecto: ${proyecto.proyecto}\nCliente: ${proyecto.cliente}\nUbicación: ${proyecto.ubicacion}\nAño: ${proyecto.fecha}\nCategoría: ${proyecto.categoria}\n\nDescripción: ${proyecto.descripcion}`);
+    }
+
+    // Smooth animations on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Observe project cards for animation
+    projectCards.forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(card);
+    });
+  });
+</script>

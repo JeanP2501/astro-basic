@@ -1,0 +1,977 @@
+---
+// src/pages/clientes.astro
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+// Datos de clientes - En producción vendría de una API o CMS
+const clientesDestacados = [
+  {
+    id: 1,
+    nombre: "Corporación ABC",
+    sector: "Manufactura",
+    logo: "/images/clientes/abc-corp.jpg",
+    descripcion: "Líder en manufactura de productos industriales con más de 50 años de experiencia.",
+    proyecto: "Sistema ERP completo con integración IoT",
+    resultados: [
+      "40% reducción en tiempos de producción",
+      "25% ahorro en costos operativos",
+      "99.9% uptime del sistema"
+    ],
+    testimonial: "MiEmpresa transformó completamente nuestros procesos. El sistema que desarrollaron superó todas nuestras expectativas.",
+    contacto: "María González - CTO",
+    fechaInicio: "2023",
+    estado: "Activo",
+    empleados: "500+",
+    facturacion: "$50M+",
+    pais: "Perú",
+    website: "https://abc-corp.com"
+  },
+  {
+    id: 2,
+    nombre: "TechSolutions Inc.",
+    sector: "Tecnología",
+    logo: "/images/clientes/techsolutions.jpg",
+    descripcion: "Empresa de desarrollo de software especializada en soluciones fintech.",
+    proyecto: "Plataforma de pagos digitales y app móvil",
+    resultados: [
+      "1M+ usuarios registrados en 6 meses",
+      "300% aumento en transacciones",
+      "Expansión a 5 países"
+    ],
+    testimonial: "La calidad del código y la arquitectura propuesta nos permitió escalar rápidamente a nivel internacional.",
+    contacto: "Carlos Méndez - CEO",
+    fechaInicio: "2022",
+    estado: "Activo",
+    empleados: "200+",
+    facturacion: "$20M+",
+    pais: "Colombia",
+    website: "https://techsolutions.co"
+  },
+  {
+    id: 3,
+    nombre: "RetailMax",
+    sector: "Retail",
+    logo: "/images/clientes/retailmax.jpg",
+    descripcion: "Cadena de retail con más de 100 tiendas en Latinoamérica.",
+    proyecto: "E-commerce omnicanal y sistema de inventario",
+    resultados: [
+      "200% crecimiento en ventas online",
+      "Inventario en tiempo real en todas las tiendas",
+      "50% reducción en stockouts"
+    ],
+    testimonial: "Gracias a MiEmpresa, logramos la transformación digital que necesitábamos para competir en el mercado actual.",
+    contacto: "Ana Rodríguez - VP Digital",
+    fechaInicio: "2021",
+    estado: "Completado",
+    empleados: "1000+",
+    facturacion: "$100M+",
+    pais: "México",
+    website: "https://retailmax.mx"
+  },
+  {
+    id: 4,
+    nombre: "AgroTech Solutions",
+    sector: "Agricultura",
+    logo: "/images/clientes/agrotech.jpg",
+    descripcion: "Empresa agrotecnológica enfocada en agricultura de precisión.",
+    proyecto: "Sistema IoT para monitoreo de cultivos",
+    resultados: [
+      "30% aumento en productividad",
+      "40% reducción en uso de agua",
+      "Monitoreo 24/7 de 1000+ hectáreas"
+    ],
+    testimonial: "La solución IoT que desarrollaron revolucionó nuestra forma de hacer agricultura.",
+    contacto: "Roberto Silva - Director de Innovación",
+    fechaInicio: "2023",
+    estado: "Activo",
+    empleados: "150+",
+    facturacion: "$15M+",
+    pais: "Chile",
+    website: "https://agrotech.cl"
+  },
+  {
+    id: 5,
+    nombre: "HealthCare Plus",
+    sector: "Salud",
+    logo: "/images/clientes/healthcare.jpg",
+    descripcion: "Red de clínicas especializadas en medicina preventiva.",
+    proyecto: "Sistema de gestión hospitalaria y telemedicina",
+    resultados: [
+      "5000+ consultas virtuales/mes",
+      "60% reducción en tiempos de espera",
+      "95% satisfacción del paciente"
+    ],
+    testimonial: "El sistema que desarrollaron nos permitió ofrecer atención médica de calidad durante la pandemia.",
+    contacto: "Dr. Luis Martínez - Director Médico",
+    fechaInicio: "2020",
+    estado: "Activo",
+    empleados: "300+",
+    facturacion: "$30M+",
+    pais: "Ecuador",
+    website: "https://healthcareplus.ec"
+  },
+  {
+    id: 6,
+    nombre: "LogiFlow",
+    sector: "Logística",
+    logo: "/images/clientes/logiflow.jpg",
+    descripcion: "Empresa de logística y distribución con cobertura continental.",
+    proyecto: "Sistema de tracking y optimización de rutas",
+    resultados: [
+      "25% reducción en costos de combustible",
+      "Tracking en tiempo real de 1000+ vehículos",
+      "98% entregas a tiempo"
+    ],
+    testimonial: "La optimización de rutas que implementaron generó ahorros significativos en nuestra operación.",
+    contacto: "Patricia Vega - Gerente de Operaciones",
+    fechaInicio: "2022",
+    estado: "Activo",
+    empleados: "800+",
+    facturacion: "$80M+",
+    pais: "Brasil",
+    website: "https://logiflow.br"
+  }
+];
+
+// Estadísticas generales
+const estadisticas = [
+  { numero: "50+", texto: "Clientes Satisfechos", icono: "👥" },
+  { numero: "15", texto: "Países con Presencia", icono: "🌍" },
+  { numero: "$500M+", texto: "Facturación de Clientes", icono: "💰" },
+  { numero: "99.9%", texto: "Uptime Promedio", icono: "⚡" }
+];
+
+// Sectores de industria
+const sectores = [
+  { nombre: "Manufactura", cantidad: 12, icono: "🏭" },
+  { nombre: "Tecnología", cantidad: 8, icono: "💻" },
+  { nombre: "Retail", cantidad: 10, icono: "🛒" },
+  { nombre: "Salud", cantidad: 6, icono: "🏥" },
+  { nombre: "Agricultura", cantidad: 5, icono: "🌾" },
+  { nombre: "Logística", cantidad: 9, icono: "🚛" }
+];
+---
+
+<Layout 
+  title="Clientes - MiEmpresa" 
+  description="Conoce a nuestros clientes más importantes y los proyectos exitosos que hemos desarrollado juntos"
+>
+  <Header />
+  
+  <main>
+    <!-- Hero Section -->
+    <section class="clients-hero">
+      <div class="container">
+        <h1>Nuestros Clientes</h1>
+        <p>Empresas líderes que confían en nosotros para su transformación digital</p>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+      <div class="container">
+        <div class="stats-grid">
+          {estadisticas.map((stat) => (
+            <div class="stat-card">
+              <div class="stat-icon">{stat.icono}</div>
+              <div class="stat-number">{stat.numero}</div>
+              <div class="stat-text">{stat.texto}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Industries Section -->
+    <section class="industries-section">
+      <div class="container">
+        <h2>Sectores que Atendemos</h2>
+        <div class="industries-grid">
+          {sectores.map((sector) => (
+            <div class="industry-card">
+              <div class="industry-icon">{sector.icono}</div>
+              <h3>{sector.nombre}</h3>
+              <p>{sector.cantidad} clientes</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Clients Section -->
+    <section class="featured-clients-section">
+      <div class="container">
+        <h2>Clientes Destacados</h2>
+        <p class="section-intro">
+          Conoce algunas de las empresas líderes que han confiado en nosotros para sus proyectos más importantes
+        </p>
+        
+        <div class="clients-grid">
+          {clientesDestacados.map((cliente) => (
+            <div class="client-card" data-client-id={cliente.id}>
+              <div class="client-header">
+                <div class="client-logo">
+                  <img src={cliente.logo} alt={`Logo de ${cliente.nombre}`} />
+                </div>
+                <div class="client-basic-info">
+                  <h3>{cliente.nombre}</h3>
+                  <div class="client-meta">
+                    <span class="client-sector">{cliente.sector}</span>
+                    <span class="client-country">📍 {cliente.pais}</span>
+                  </div>
+                </div>
+                <div class="client-status">
+                  <span class={`status-badge ${cliente.estado.toLowerCase()}`}>
+                    {cliente.estado}
+                  </span>
+                </div>
+              </div>
+
+              <div class="client-description">
+                <p>{cliente.descripcion}</p>
+              </div>
+
+              <div class="client-project">
+                <h4>Proyecto Desarrollado:</h4>
+                <p>{cliente.proyecto}</p>
+              </div>
+
+              <div class="client-results">
+                <h4>Resultados Obtenidos:</h4>
+                <ul>
+                  {cliente.resultados.map((resultado) => (
+                    <li>{resultado}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div class="client-testimonial">
+                <blockquote>
+                  "{cliente.testimonial}"
+                </blockquote>
+                <cite>- {cliente.contacto}</cite>
+              </div>
+
+              <div class="client-details">
+                <div class="detail-item">
+                  <span class="detail-label">Empleados:</span>
+                  <span class="detail-value">{cliente.empleados}</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">Facturación:</span>
+                  <span class="detail-value">{cliente.facturacion}</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">Inicio:</span>
+                  <span class="detail-value">{cliente.fechaInicio}</span>
+                </div>
+              </div>
+
+              <div class="client-actions">
+                <button class="btn-primary case-study-btn" data-client-id={cliente.id}>
+                  Ver caso de estudio
+                </button>
+                <a href={cliente.website} target="_blank" rel="noopener" class="btn-secondary">
+                  Visitar sitio web
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Success Stories Carousel -->
+    <section class="success-stories-section">
+      <div class="container">
+        <h2>Historias de Éxito</h2>
+        <div class="carousel-container">
+          <div class="carousel" id="successCarousel">
+            {clientesDestacados.slice(0, 4).map((cliente, index) => (
+              <div class="carousel-slide" data-slide={index}>
+                <div class="story-content">
+                  <div class="story-quote">
+                    <blockquote>"{cliente.testimonial}"</blockquote>
+                  </div>
+                  <div class="story-author">
+                    <div class="author-info">
+                      <h4>{cliente.contacto}</h4>
+                      <p>{cliente.nombre}</p>
+                    </div>
+                    <div class="story-results">
+                      <div class="result-highlight">
+                        {cliente.resultados[0]}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          <div class="carousel-controls">
+            <button class="carousel-btn prev" id="prevBtn">❮</button>
+            <button class="carousel-btn next" id="nextBtn">❯</button>
+          </div>
+          
+          <div class="carousel-indicators">
+            {clientesDestacados.slice(0, 4).map((_, index) => (
+              <button class={`indicator ${index === 0 ? 'active' : ''}`} data-slide={index}></button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-content">
+          <h2>¿Quieres ser nuestro próximo caso de éxito?</h2>
+          <p>Únete a las empresas líderes que ya están transformando su negocio con nuestras soluciones</p>
+          <div class="cta-buttons">
+            <a href="/contacto" class="btn-primary">Iniciar mi proyecto</a>
+            <a href="/productos" class="btn-secondary">Ver nuestros productos</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</Layout>
+
+<style>
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* Hero Section */
+  .clients-hero {
+    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  .clients-hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  .clients-hero p {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Stats Section */
+  .stats-section {
+    padding: 3rem 0;
+    background: #f8fafc;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+  }
+
+  .stat-card {
+    text-align: center;
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #2563eb;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-text {
+    color: #64748b;
+    font-weight: 500;
+  }
+
+  /* Industries Section */
+  .industries-section {
+    padding: 4rem 0;
+    background: white;
+  }
+
+  .industries-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #1e293b;
+  }
+
+  .industries-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .industry-card {
+    text-align: center;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 2px solid #e2e8f0;
+    transition: all 0.3s ease;
+  }
+
+  .industry-card:hover {
+    border-color: #2563eb;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(37, 99, 235, 0.1);
+  }
+
+  .industry-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .industry-card h3 {
+    color: #1e293b;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .industry-card p {
+    color: #64748b;
+    font-size: 0.9rem;
+  }
+
+  /* Featured Clients Section */
+  .featured-clients-section {
+    padding: 5rem 0;
+    background: #f8fafc;
+  }
+
+  .featured-clients-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #1e293b;
+  }
+
+  .section-intro {
+    text-align: center;
+    color: #64748b;
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .clients-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+  }
+
+  .client-card {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid #e2e8f0;
+  }
+
+  .client-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .client-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .client-logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .client-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .client-basic-info {
+    flex: 1;
+  }
+
+  .client-basic-info h3 {
+    color: #1e293b;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .client-meta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .client-sector,
+  .client-country {
+    color: #64748b;
+    font-size: 0.9rem;
+  }
+
+  .client-status {
+    flex-shrink: 0;
+  }
+
+  .status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .status-badge.activo {
+    background: #dcfce7;
+    color: #166534;
+  }
+
+  .status-badge.completado {
+    background: #dbeafe;
+    color: #1d4ed8;
+  }
+
+  .client-description,
+  .client-project {
+    margin-bottom: 1.5rem;
+  }
+
+  .client-project h4,
+  .client-results h4 {
+    color: #1e293b;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .client-results {
+    margin-bottom: 1.5rem;
+  }
+
+  .client-results ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .client-results li {
+    color: #064e3b;
+    background: #ecfdf5;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 8px;
+    border-left: 3px solid #22c55e;
+    font-size: 0.9rem;
+  }
+
+  .client-testimonial {
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid #2563eb;
+  }
+
+  .client-testimonial blockquote {
+    color: #1e293b;
+    font-style: italic;
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+  }
+
+  .client-testimonial cite {
+    color: #64748b;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .client-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: #f1f5f9;
+    border-radius: 8px;
+  }
+
+  .detail-item {
+    text-align: center;
+  }
+
+  .detail-label {
+    display: block;
+    color: #64748b;
+    font-size: 0.8rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .detail-value {
+    color: #1e293b;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .client-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    text-align: center;
+    flex: 1;
+    min-width: 140px;
+  }
+
+  .btn-primary {
+    background: #2563eb;
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: #2563eb;
+    border: 2px solid #2563eb;
+  }
+
+  .btn-secondary:hover {
+    background: #2563eb;
+    color: white;
+  }
+
+  /* Success Stories Carousel */
+  .success-stories-section {
+    padding: 5rem 0;
+    background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+    color: white;
+  }
+
+  .success-stories-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .carousel-container {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .carousel {
+    overflow: hidden;
+    border-radius: 12px;
+  }
+
+  .carousel-slide {
+    display: none;
+    padding: 3rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+  }
+
+  .carousel-slide.active {
+    display: block;
+  }
+
+  .story-content {
+    text-align: center;
+  }
+
+  .story-quote blockquote {
+    font-size: 1.5rem;
+    font-style: italic;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  .story-author {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .author-info h4 {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+  }
+
+  .author-info p {
+    opacity: 0.8;
+    margin: 0;
+  }
+
+  .result-highlight {
+    background: rgba(34, 197, 94, 0.2);
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid #22c55e;
+    font-weight: 600;
+  }
+
+  .carousel-controls {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+  }
+
+  .carousel-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    pointer-events: all;
+    transition: all 0.3s;
+  }
+
+  .carousel-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .carousel-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+  }
+
+  .indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .indicator.active,
+  .indicator:hover {
+    background: white;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  .cta-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .cta-content p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .cta-buttons .btn-primary,
+  .cta-buttons .btn-secondary {
+    padding: 1rem 2rem;
+    flex: none;
+    min-width: auto;
+  }
+
+  .cta-buttons .btn-secondary {
+    background: transparent;
+    color: white;
+    border-color: white;
+  }
+
+  .cta-buttons .btn-secondary:hover {
+    background: white;
+    color: #2563eb;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .clients-hero h1 {
+      font-size: 2rem;
+    }
+
+    .clients-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .client-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .client-actions {
+      flex-direction: column;
+    }
+
+    .story-author {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .carousel-controls {
+      position: static;
+      transform: none;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .container {
+      padding: 0 1rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Carousel functionality
+    const carousel = document.getElementById('successCarousel');
+    const slides = carousel.querySelectorAll('.carousel-slide');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const indicators = document.querySelectorAll('.indicator');
+    
+    let currentSlide = 0;
+
+    function showSlide(index) {
+      slides.forEach(slide => slide.classList.remove('active'));
+      indicators.forEach(indicator => indicator.classList.remove('active'));
+      
+      slides[index].classList.add('active');
+      indicators[index].classList.add('active');
+      currentSlide = index;
+    }
+
+    function nextSlide() {
+      const next = (currentSlide + 1) % slides.length;
+      showSlide(next);
+    }
+
+    function prevSlide() {
+      const prev = (currentSlide - 1 + slides.length) % slides.length;
+      showSlide(prev);
+    }
+
+    // Event listeners
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+
+    indicators.forEach((indicator, index) => {
+      indicator.addEventListener('click', () => showSlide(index));
+    });
+
+    // Auto-play carousel
+    setInterval(nextSlide, 5000);
+
+    // Case study button functionality
+    const caseStudyButtons = document.querySelectorAll('.case-study-btn');
+    caseStudyButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        const clientId = button.getAttribute('data-client-id');
+        // Redirect to case study page or show modal
+        window.location.href = `/caso-estudio/${clientId}`;
+      });
+    });
+
+    // Smooth animations on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Observe client cards for animation
+    const clientCards = document.querySelectorAll('.client-card');
+    clientCards.forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(card);
+    });
+  });
+</script>

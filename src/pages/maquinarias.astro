@@ -1,0 +1,1318 @@
+---
+// src/pages/maquinarias.astro
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+// Datos de maquinarias - En producción vendría de una API o CMS
+const maquinariasDestacadas = [
+  {
+    id: 1,
+    nombre: "Línea de Producción Industrial A",
+    categoria: "Producción",
+    imagen: "/images/maquinarias/linea-produccion-a.jpg",
+    descripcion: "Línea automatizada de alta capacidad para manufactura de componentes industriales",
+    especificaciones: {
+      "Capacidad": "10,000 unidades/día",
+      "Precisión": "±0.01mm",
+      "Velocidad": "500 ppm",
+      "Potencia": "150 kW"
+    },
+    destacada: true
+  },
+  {
+    id: 2,
+    nombre: "Robot Soldador Automático",
+    categoria: "Soldadura",
+    imagen: "/images/maquinarias/robot-soldador.jpg",
+    descripcion: "Sistema robótico de soldadura con control numérico y monitoreo en tiempo real",
+    especificaciones: {
+      "Alcance": "2.5 metros",
+      "Precisión": "±0.05mm",
+      "Velocidad": "2.5 m/min",
+      "Tipo": "MIG/TIG/Arco"
+    },
+    destacada: true
+  },
+  {
+    id: 3,
+    nombre: "Prensa Hidráulica 500T",
+    categoria: "Conformado",
+    imagen: "/images/maquinarias/prensa-hidraulica.jpg",
+    descripcion: "Prensa hidráulica de alta tonelaje para conformado de metales",
+    especificaciones: {
+      "Fuerza": "500 toneladas",
+      "Apertura": "1200mm",
+      "Mesa": "2000x1500mm",
+      "Velocidad": "15mm/s"
+    },
+    destacada: true
+  }
+];
+
+const categoriasMaquinarias = [
+  {
+    nombre: "Producción",
+    cantidad: 12,
+    icono: "🏭",
+    descripcion: "Líneas automatizadas de producción",
+    maquinarias: [
+      {
+        nombre: "Línea Ensamblaje A1",
+        imagen: "/images/maquinarias/produccion/ensamblaje-a1.jpg",
+        capacidad: "8,000 unidades/día"
+      },
+      {
+        nombre: "Línea Ensamblaje B2",
+        imagen: "/images/maquinarias/produccion/ensamblaje-b2.jpg",
+        capacidad: "12,000 unidades/día"
+      },
+      {
+        nombre: "Sistema Packaging",
+        imagen: "/images/maquinarias/produccion/packaging.jpg",
+        capacidad: "15,000 unidades/día"
+      },
+      {
+        nombre: "Control de Calidad Auto",
+        imagen: "/images/maquinarias/produccion/control-calidad.jpg",
+        capacidad: "100% inspección"
+      }
+    ]
+  },
+  {
+    nombre: "Soldadura",
+    cantidad: 8,
+    icono: "⚡",
+    descripcion: "Equipos de soldadura automatizada",
+    maquinarias: [
+      {
+        nombre: "Robot Kuka KR6",
+        imagen: "/images/maquinarias/soldadura/kuka-kr6.jpg",
+        capacidad: "Soldadura MIG/TIG"
+      },
+      {
+        nombre: "Estación Soldadura Manual",
+        imagen: "/images/maquinarias/soldadura/manual.jpg",
+        capacidad: "Soldadura especializada"
+      },
+      {
+        nombre: "Soldadora por Puntos",
+        imagen: "/images/maquinarias/soldadura/puntos.jpg",
+        capacidad: "200 puntos/min"
+      },
+      {
+        nombre: "Sistema Soldadura Láser",
+        imagen: "/images/maquinarias/soldadura/laser.jpg",
+        capacidad: "Precisión micrométrica"
+      }
+    ]
+  },
+  {
+    nombre: "Mecanizado",
+    cantidad: 15,
+    icono: "🔧",
+    descripcion: "Centros de mecanizado CNC",
+    maquinarias: [
+      {
+        nombre: "CNC Vertical 5 Ejes",
+        imagen: "/images/maquinarias/mecanizado/cnc-5ejes.jpg",
+        capacidad: "Precisión 0.001mm"
+      },
+      {
+        nombre: "Torno CNC Horizontal",
+        imagen: "/images/maquinarias/mecanizado/torno-cnc.jpg",
+        capacidad: "Diámetro 500mm"
+      },
+      {
+        nombre: "Fresadora Universal",
+        imagen: "/images/maquinarias/mecanizado/fresadora.jpg",
+        capacidad: "Mesa 1500x800mm"
+      },
+      {
+        nombre: "Rectificadora Cilíndrica",
+        imagen: "/images/maquinarias/mecanizado/rectificadora.jpg",
+        capacidad: "Acabado espejo"
+      }
+    ]
+  },
+  {
+    nombre: "Conformado",
+    cantidad: 6,
+    icono: "🏗️",
+    descripcion: "Equipos de conformado y deformación",
+    maquinarias: [
+      {
+        nombre: "Prensa 300T",
+        imagen: "/images/maquinarias/conformado/prensa-300t.jpg",
+        capacidad: "300 toneladas"
+      },
+      {
+        nombre: "Dobladora CNC",
+        imagen: "/images/maquinarias/conformado/dobladora.jpg",
+        capacidad: "6m longitud"
+      },
+      {
+        nombre: "Guillotina Hidráulica",
+        imagen: "/images/maquinarias/conformado/guillotina.jpg",
+        capacidad: "20mm acero"
+      },
+      {
+        nombre: "Roladora de Tubos",
+        imagen: "/images/maquinarias/conformado/roladora.jpg",
+        capacidad: "Tubos hasta 200mm"
+      }
+    ]
+  },
+  {
+    nombre: "Control de Calidad",
+    cantidad: 4,
+    icono: "🔍",
+    descripcion: "Equipos de medición y control",
+    maquinarias: [
+      {
+        nombre: "CMM Zeiss Coordinate",
+        imagen: "/images/maquinarias/calidad/cmm-zeiss.jpg",
+        capacidad: "Medición 3D"
+      },
+      {
+        nombre: "Rugosímetro Digital",
+        imagen: "/images/maquinarias/calidad/rugosimetro.jpg",
+        capacidad: "Ra 0.01μm"
+      },
+      {
+        nombre: "Proyector de Perfiles",
+        imagen: "/images/maquinarias/calidad/proyector.jpg",
+        capacidad: "Magnificación 50x"
+      },
+      {
+        nombre: "Durómetro Universal",
+        imagen: "/images/maquinarias/calidad/durometro.jpg",
+        capacidad: "HRC, HRB, HV"
+      }
+    ]
+  },
+  {
+    nombre: "Transporte",
+    cantidad: 10,
+    icono: "🚛",
+    descripcion: "Sistemas de transporte interno",
+    maquinarias: [
+      {
+        nombre: "Banda Transportadora A",
+        imagen: "/images/maquinarias/transporte/banda-a.jpg",
+        capacidad: "50m longitud"
+      },
+      {
+        nombre: "AGV Automático",
+        imagen: "/images/maquinarias/transporte/agv.jpg",
+        capacidad: "2 ton carga"
+      },
+      {
+        nombre: "Grúa Puente 10T",
+        imagen: "/images/maquinarias/transporte/grua.jpg",
+        capacidad: "10 toneladas"
+      },
+      {
+        nombre: "Elevador de Carga",
+        imagen: "/images/maquinarias/transporte/elevador.jpg",
+        capacidad: "5 toneladas"
+      }
+    ]
+  }
+];
+
+// Estadísticas de maquinarias
+const estadisticasMaquinarias = [
+  { numero: "55+", texto: "Máquinas Industriales", icono: "🏭" },
+  { numero: "98.5%", texto: "Eficiencia Operativa", icono: "⚡" },
+  { numero: "24/7", texto: "Operación Continua", icono: "🔄" },
+  { numero: "Industry 4.0", texto: "Tecnología Avanzada", icono: "🤖" }
+];
+---
+
+<Layout 
+  title="Maquinarias - MiEmpresa" 
+  description="Conoce nuestro parque de maquinarias industriales de última generación para proyectos de manufactura"
+>
+  <Header />
+  
+  <main>
+    <!-- Hero Section with Carousel -->
+    <section class="machinery-hero">
+      <div class="hero-carousel-container">
+        <div class="hero-carousel" id="heroCarousel">
+          {maquinariasDestacadas.map((maquinaria, index) => (
+            <div class={`hero-slide ${index === 0 ? 'active' : ''}`} data-slide={index}>
+              <div class="hero-image">
+                <img src={maquinaria.imagen} alt={maquinaria.nombre} />
+                <div class="hero-overlay"></div>
+              </div>
+              <div class="hero-content">
+                <div class="container">
+                  <h1>{maquinaria.nombre}</h1>
+                  <p class="hero-category">{maquinaria.categoria}</p>
+                  <p class="hero-description">{maquinaria.descripcion}</p>
+                  <div class="hero-specs">
+                    {Object.entries(maquinaria.especificaciones).slice(0, 2).map(([key, value]) => (
+                      <div class="spec-item">
+                        <span class="spec-label">{key}:</span>
+                        <span class="spec-value">{value}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <button class="btn-primary hero-cta" data-machinery={maquinaria.id}>
+                    Ver detalles técnicos
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        <div class="hero-carousel-controls">
+          <button class="carousel-btn prev" id="heroPrevBtn">❮</button>
+          <button class="carousel-btn next" id="heroNextBtn">❯</button>
+        </div>
+        
+        <div class="hero-carousel-indicators">
+          {maquinariasDestacadas.map((_, index) => (
+            <button class={`indicator ${index === 0 ? 'active' : ''}`} data-slide={index}></button>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="machinery-stats">
+      <div class="container">
+        <div class="stats-grid">
+          {estadisticasMaquinarias.map((stat) => (
+            <div class="stat-card">
+              <div class="stat-icon">{stat.icono}</div>
+              <div class="stat-number">{stat.numero}</div>
+              <div class="stat-text">{stat.texto}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories Navigation -->
+    <section class="categories-nav">
+      <div class="container">
+        <h2>Categorías de Maquinarias</h2>
+        <div class="categories-filter">
+          <button class="category-btn active" data-category="all">
+            Todas las categorías
+          </button>
+          {categoriasMaquinarias.map((categoria) => (
+            <button class="category-btn" data-category={categoria.nombre.toLowerCase()}>
+              {categoria.icono} {categoria.nombre}
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Machinery Categories Grid -->
+    <section class="machinery-categories">
+      <div class="container">
+        {categoriasMaquinarias.map((categoria) => (
+          <div class="category-section" data-category={categoria.nombre.toLowerCase()}>
+            <div class="category-header">
+              <div class="category-info">
+                <h3>
+                  <span class="category-icon">{categoria.icono}</span>
+                  {categoria.nombre}
+                </h3>
+                <p>{categoria.descripcion}</p>
+                <span class="category-count">{categoria.cantidad} máquinas disponibles</span>
+              </div>
+            </div>
+            
+            <div class="machinery-grid">
+              {categoria.maquinarias.map((maquinaria, index) => (
+                <div class="machinery-card" data-machinery-index={index}>
+                  <div class="machinery-image-container">
+                    <img 
+                      src={maquinaria.imagen} 
+                      alt={maquinaria.nombre}
+                      class="machinery-image"
+                      loading="lazy"
+                    />
+                    <div class="machinery-overlay">
+                      <button class="quick-view-btn" data-machinery={maquinaria.nombre}>
+                        🔍 Ver detalles
+                      </button>
+                    </div>
+                  </div>
+                  <div class="machinery-info">
+                    <h4>{maquinaria.nombre}</h4>
+                    <p class="machinery-capacity">{maquinaria.capacidad}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Technical Specifications Section -->
+    <section class="technical-specs">
+      <div class="container">
+        <h2>Capacidades Técnicas</h2>
+        <div class="specs-grid">
+          <div class="spec-category">
+            <h3>🎯 Precisión</h3>
+            <div class="spec-details">
+              <div class="spec-item">
+                <span>Mecanizado CNC:</span>
+                <span>±0.001mm</span>
+              </div>
+              <div class="spec-item">
+                <span>Soldadura robotizada:</span>
+                <span>±0.05mm</span>
+              </div>
+              <div class="spec-item">
+                <span>Control dimensional:</span>
+                <span>±0.002mm</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="spec-category">
+            <h3>⚡ Capacidad</h3>
+            <div class="spec-details">
+              <div class="spec-item">
+                <span>Producción diaria:</span>
+                <span>50,000+ piezas</span>
+              </div>
+              <div class="spec-item">
+                <span>Fuerza máxima:</span>
+                <span>500 toneladas</span>
+              </div>
+              <div class="spec-item">
+                <span>Velocidad máxima:</span>
+                <span>500 ppm</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="spec-category">
+            <h3>🔧 Versatilidad</h3>
+            <div class="spec-details">
+              <div class="spec-item">
+                <span>Materiales:</span>
+                <span>Acero, Aluminio, Plásticos</span>
+              </div>
+              <div class="spec-item">
+                <span>Procesos:</span>
+                <span>15+ tipos diferentes</span>
+              </div>
+              <div class="spec-item">
+                <span>Automatización:</span>
+                <span>Industry 4.0</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="spec-category">
+            <h3>📊 Monitoreo</h3>
+            <div class="spec-details">
+              <div class="spec-item">
+                <span>Tiempo real:</span>
+                <span>24/7 supervisión</span>
+              </div>
+              <div class="spec-item">
+                <span>Predictivo:</span>
+                <span>AI + IoT integrado</span>
+              </div>
+              <div class="spec-item">
+                <span>Eficiencia:</span>
+                <span>98.5% OEE promedio</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-content">
+          <h2>¿Necesitas capacidad de producción especializada?</h2>
+          <p>Nuestro parque de maquinarias puede adaptarse a las necesidades específicas de tu proyecto</p>
+          <div class="cta-buttons">
+            <a href="/contacto" class="btn-primary">Solicitar cotización</a>
+            <a href="/productos" class="btn-secondary">Ver nuestros productos</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div id="machineryModal" class="modal">
+      <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <div id="modalContent">
+          <!-- Content will be loaded dynamically -->
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <Footer />
+</Layout>
+
+<style>
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* Hero Carousel */
+  .machinery-hero {
+    position: relative;
+    height: 70vh;
+    min-height: 500px;
+    overflow: hidden;
+  }
+
+  .hero-carousel-container {
+    position: relative;
+    height: 100%;
+  }
+
+  .hero-carousel {
+    height: 100%;
+    position: relative;
+  }
+
+  .hero-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    display: flex;
+    align-items: center;
+  }
+
+  .hero-slide.active {
+    opacity: 1;
+  }
+
+  .hero-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    color: white;
+    width: 100%;
+  }
+
+  .hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  }
+
+  .hero-category {
+    font-size: 1.2rem;
+    color: #fbbf24;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .hero-description {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+    max-width: 600px;
+    line-height: 1.6;
+  }
+
+  .hero-specs {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .spec-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+  }
+
+  .spec-label {
+    display: block;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-bottom: 0.25rem;
+  }
+
+  .spec-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fbbf24;
+  }
+
+  .hero-cta {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .hero-cta:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(37, 99, 235, 0.3);
+  }
+
+  /* Carousel Controls */
+  .hero-carousel-controls {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2rem;
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  .carousel-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.5rem;
+    pointer-events: all;
+    transition: all 0.3s;
+    backdrop-filter: blur(10px);
+  }
+
+  .carousel-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+  }
+
+  .hero-carousel-indicators {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1rem;
+    z-index: 3;
+  }
+
+  .indicator {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 2px solid white;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .indicator.active,
+  .indicator:hover {
+    background: white;
+    transform: scale(1.2);
+  }
+
+  /* Stats Section */
+  .machinery-stats {
+    padding: 3rem 0;
+    background: #f8fafc;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+  }
+
+  .stat-card {
+    text-align: center;
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #2563eb;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-text {
+    color: #64748b;
+    font-weight: 500;
+  }
+
+  /* Categories Navigation */
+  .categories-nav {
+    padding: 3rem 0;
+    background: white;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .categories-nav h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #1e293b;
+  }
+
+  .categories-filter {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .category-btn {
+    background: white;
+    border: 2px solid #e2e8f0;
+    color: #64748b;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 500;
+  }
+
+  .category-btn:hover,
+  .category-btn.active {
+    background: #2563eb;
+    border-color: #2563eb;
+    color: white;
+    transform: translateY(-2px);
+  }
+
+  /* Machinery Categories */
+  .machinery-categories {
+    padding: 4rem 0;
+    background: #f8fafc;
+  }
+
+  .category-section {
+    margin-bottom: 4rem;
+    transition: all 0.3s ease;
+  }
+
+  .category-section.hidden {
+    display: none;
+  }
+
+  .category-header {
+    margin-bottom: 2rem;
+  }
+
+  .category-info h3 {
+    color: #1e293b;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .category-icon {
+    font-size: 2.5rem;
+  }
+
+  .category-info p {
+    color: #64748b;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .category-count {
+    color: #2563eb;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .machinery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .machinery-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .machinery-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .machinery-image-container {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+  }
+
+  .machinery-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .machinery-card:hover .machinery-image {
+    transform: scale(1.05);
+  }
+
+  .machinery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .machinery-card:hover .machinery-overlay {
+    opacity: 1;
+  }
+
+  .quick-view-btn {
+    background: white;
+    color: #1e293b;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .quick-view-btn:hover {
+    background: #2563eb;
+    color: white;
+    transform: scale(1.05);
+  }
+
+  .machinery-info {
+    padding: 1.5rem;
+  }
+
+  .machinery-info h4 {
+    color: #1e293b;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .machinery-capacity {
+    color: #2563eb;
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+
+  /* Technical Specifications */
+  .technical-specs {
+    padding: 4rem 0;
+    background: white;
+  }
+
+  .technical-specs h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #1e293b;
+  }
+
+  .specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+
+  .spec-category {
+    background: #f8fafc;
+    padding: 2rem;
+    border-radius: 12px;
+    border-left: 4px solid #2563eb;
+  }
+
+  .spec-category h3 {
+    color: #1e293b;
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .spec-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .spec-details .spec-item {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .spec-details .spec-item span:first-child {
+    color: #64748b;
+    font-size: 0.9rem;
+  }
+
+  .spec-details .spec-item span:last-child {
+    color: #1e293b;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  .cta-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .cta-content p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-primary {
+    background: #2563eb;
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+  }
+
+  .btn-secondary:hover {
+    background: white;
+    color: #1e293b;
+  }
+
+  /* Modal */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+  }
+
+  .modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 2rem;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 80%;
+    overflow-y: auto;
+    position: relative;
+  }
+
+  .modal-close {
+    color: #aaa;
+    float: right;
+    font-size: 2rem;
+    font-weight: bold;
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    cursor: pointer;
+  }
+
+  .modal-close:hover {
+    color: #000;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .hero-content h1 {
+      font-size: 2.5rem;
+    }
+
+    .hero-description {
+      font-size: 1.1rem;
+    }
+
+    .hero-specs {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .categories-filter {
+      justify-content: flex-start;
+      overflow-x: auto;
+      padding-bottom: 1rem;
+    }
+
+    .category-btn {
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .machinery-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .specs-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      padding: 0 1rem;
+    }
+
+    .hero-carousel-controls {
+      padding: 0 1rem;
+    }
+
+    .carousel-btn {
+      width: 3rem;
+      height: 3rem;
+      font-size: 1.2rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .machinery-hero {
+      height: 60vh;
+      min-height: 400px;
+    }
+
+    .hero-content h1 {
+      font-size: 2rem;
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Add placeholder styling for missing images */
+  .machinery-image,
+  .hero-image img {
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+    font-size: 3rem;
+  }
+
+  .machinery-image::before,
+  .hero-image img::before {
+    content: "🏭";
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Hero Carousel functionality
+    const heroCarousel = document.getElementById('heroCarousel');
+    const heroSlides = heroCarousel.querySelectorAll('.hero-slide');
+    const heroPrevBtn = document.getElementById('heroPrevBtn');
+    const heroNextBtn = document.getElementById('heroNextBtn');
+    const heroIndicators = document.querySelectorAll('.hero-carousel-indicators .indicator');
+    
+    let currentHeroSlide = 0;
+
+    function showHeroSlide(index) {
+      heroSlides.forEach(slide => slide.classList.remove('active'));
+      heroIndicators.forEach(indicator => indicator.classList.remove('active'));
+      
+      heroSlides[index].classList.add('active');
+      heroIndicators[index].classList.add('active');
+      currentHeroSlide = index;
+    }
+
+    function nextHeroSlide() {
+      const next = (currentHeroSlide + 1) % heroSlides.length;
+      showHeroSlide(next);
+    }
+
+    function prevHeroSlide() {
+      const prev = (currentHeroSlide - 1 + heroSlides.length) % heroSlides.length;
+      showHeroSlide(prev);
+    }
+
+    // Hero carousel event listeners
+    heroNextBtn.addEventListener('click', nextHeroSlide);
+    heroPrevBtn.addEventListener('click', prevHeroSlide);
+
+    heroIndicators.forEach((indicator, index) => {
+      indicator.addEventListener('click', () => showHeroSlide(index));
+    });
+
+    // Auto-play hero carousel
+    setInterval(nextHeroSlide, 6000);
+
+    // Category filtering
+    const categoryButtons = document.querySelectorAll('.category-btn');
+    const categorySections = document.querySelectorAll('.category-section');
+
+    categoryButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Remove active class from all buttons
+        categoryButtons.forEach(btn => btn.classList.remove('active'));
+        // Add active class to clicked button
+        button.classList.add('active');
+        
+        const category = button.getAttribute('data-category');
+        
+        // Show/hide category sections
+        categorySections.forEach(section => {
+          if (category === 'all' || section.getAttribute('data-category') === category) {
+            section.classList.remove('hidden');
+          } else {
+            section.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    // Modal functionality
+    const modal = document.getElementById('machineryModal');
+    const modalContent = document.getElementById('modalContent');
+    const closeModal = document.querySelector('.modal-close');
+    const quickViewButtons = document.querySelectorAll('.quick-view-btn');
+
+    // Quick view functionality
+    quickViewButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const machineryName = button.getAttribute('data-machinery');
+        showMachineryModal(machineryName);
+      });
+    });
+
+    // CTA button functionality
+    const heroCtaButtons = document.querySelectorAll('.hero-cta');
+    heroCtaButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        const machineryId = button.getAttribute('data-machinery');
+        // Redirect to contact page with machinery info
+        window.location.href = `/contacto?maquinaria=${machineryId}`;
+      });
+    });
+
+    // Close modal functionality
+    closeModal.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+
+    // Function to show machinery modal
+    function showMachineryModal(machineryName) {
+      const modalHTML = `
+        <div class="modal-machinery">
+          <h2>${machineryName}</h2>
+          <div class="modal-machinery-content">
+            <div class="modal-machinery-image">
+              <img src="/images/maquinarias/placeholder.jpg" alt="${machineryName}" style="width: 100%; height: 300px; object-fit: cover; border-radius: 8px;">
+            </div>
+            
+            <div class="modal-machinery-info">
+              <h3>Especificaciones Técnicas</h3>
+              <div class="modal-specs">
+                <div class="modal-spec-item">
+                  <strong>Tipo:</strong> Maquinaria Industrial
+                </div>
+                <div class="modal-spec-item">
+                  <strong>Estado:</strong> Operativa
+                </div>
+                <div class="modal-spec-item">
+                  <strong>Mantenimiento:</strong> Preventivo programado
+                </div>
+                <div class="modal-spec-item">
+                  <strong>Certificaciones:</strong> ISO 9001, CE
+                </div>
+              </div>
+              
+              <h3>Capacidades</h3>
+              <ul class="modal-capabilities">
+                <li>Alta precisión en procesos</li>
+                <li>Operación continua 24/7</li>
+                <li>Monitoreo en tiempo real</li>
+                <li>Integración con sistemas IoT</li>
+              </ul>
+              
+              <div class="modal-actions">
+                <button class="btn-primary" onclick="window.location.href='/contacto?maquinaria=${machineryName}'">
+                  Solicitar información
+                </button>
+                <button class="btn-secondary" onclick="document.getElementById('machineryModal').style.display='none'">
+                  Cerrar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      modalContent.innerHTML = modalHTML;
+      modal.style.display = 'block';
+    }
+
+    // Smooth animations on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Observe machinery cards for animation
+    const machineryCards = document.querySelectorAll('.machinery-card');
+    machineryCards.forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(card);
+    });
+
+    // Keyboard navigation for carousel
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        prevHeroSlide();
+      } else if (e.key === 'ArrowRight') {
+        nextHeroSlide();
+      }
+    });
+  });
+</script>
