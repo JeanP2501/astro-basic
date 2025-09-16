@@ -1,0 +1,142 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Inicio - MiEmpresa">
+  <Header />
+  
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-container">
+        <h1>Bienvenido a MiEmpresa</h1>
+        <p class="hero-subtitle">
+          Ofrecemos soluciones profesionales para hacer crecer tu negocio
+        </p>
+        <a href="/contacto" class="cta-button">Contáctanos</a>
+      </div>
+    </section>
+    
+    <!-- Services Preview -->
+    <section class="services-preview">
+      <div class="container">
+        <h2>Nuestros Servicios</h2>
+        <div class="services-grid">
+          <div class="service-card">
+            <h3>Consultoría</h3>
+            <p>Asesoramiento especializado para tu empresa</p>
+          </div>
+          <div class="service-card">
+            <h3>Desarrollo</h3>
+            <p>Soluciones tecnológicas a medida</p>
+          </div>
+          <div class="service-card">
+            <h3>Soporte</h3>
+            <p>Acompañamiento continuo en tus proyectos</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</Layout>
+
+<style>
+  .hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 6rem 2rem;
+    text-align: center;
+  }
+  
+  .hero-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+  
+  .cta-button {
+    display: inline-block;
+    background: #2563eb;
+    color: white;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+  }
+  
+  .services-preview {
+    padding: 4rem 2rem;
+    background: #f8fafc;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .services-preview h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #1e293b;
+  }
+  
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+  
+  .service-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s;
+  }
+  
+  .service-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .service-card h3 {
+    color: #2563eb;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  @media (max-width: 768px) {
+    .hero h1 {
+      font-size: 2rem;
+    }
+    
+    .hero-subtitle {
+      font-size: 1rem;
+    }
+    
+    .services-preview h2 {
+      font-size: 2rem;
+    }
+  }
+</style>
