@@ -1,0 +1,1328 @@
+---
+// src/pages/productos.astro
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+// Datos de productos - En un proyecto real, esto vendría de una API o CMS
+const productos = [
+  {
+    id: 1,
+    nombre: "Sistema de Gestión Empresarial",
+    categoria: "Software",
+    precio: 2500,
+    precioOriginal: 3000,
+    moneda: "USD",
+    imagen: "/images/productos/sistema-gestion.jpg", // Placeholder URL
+    imagenes: [
+      "/images/productos/sistema-gestion-1.jpg",
+      "/images/productos/sistema-gestion-2.jpg",
+      "/images/productos/sistema-gestion-3.jpg"
+    ],
+    descripcionCorta: "Plataforma completa para gestionar todos los aspectos de tu empresa desde un solo lugar.",
+    descripcionLarga: "Nuestro Sistema de Gestión Empresarial es una solución integral que permite administrar ventas, inventario, finanzas, recursos humanos y más. Incluye dashboards en tiempo real, reportes automáticos y integración con múltiples sistemas externos.",
+    caracteristicas: [
+      "Dashboard ejecutivo en tiempo real",
+      "Gestión de inventario automática",
+      "Facturación electrónica integrada",
+      "Reportes y analytics avanzados",
+      "API REST para integraciones",
+      "Soporte 24/7 incluido"
+    ],
+    especificaciones: {
+      "Usuarios": "Ilimitados",
+      "Almacenamiento": "100GB incluidos",
+      "Integraciones": "50+ aplicaciones",
+      "Soporte": "24/7 por email y chat",
+      "Actualizaciones": "Gratuitas de por vida",
+      "Implementación": "2-4 semanas"
+    },
+    tecnologias: ["React", "Node.js", "PostgreSQL", "AWS"],
+    disponible: true,
+    destacado: true,
+    tiempoEntrega: "2-4 semanas",
+    garantia: "12 meses",
+    slug: "sistema-gestion-empresarial"
+  },
+  {
+    id: 2,
+    nombre: "App Móvil de Ventas",
+    categoria: "Aplicación Móvil",
+    precio: 1800,
+    precioOriginal: null,
+    moneda: "USD",
+    imagen: "/images/productos/app-ventas.jpg",
+    imagenes: [
+      "/images/productos/app-ventas-1.jpg",
+      "/images/productos/app-ventas-2.jpg",
+      "/images/productos/app-ventas-3.jpg"
+    ],
+    descripcionCorta: "Aplicación móvil nativa para gestionar ventas desde cualquier lugar.",
+    descripcionLarga: "Desarrollamos aplicaciones móviles nativas (iOS y Android) que permiten a tu equipo de ventas gestionar clientes, productos, cotizaciones y pedidos desde cualquier dispositivo móvil. Sincronización automática con tu sistema principal.",
+    caracteristicas: [
+      "Compatible con iOS y Android",
+      "Sincronización offline/online",
+      "Gestión de clientes y productos",
+      "Generación de cotizaciones",
+      "Firma digital de contratos",
+      "Geolocalización de visitas"
+    ],
+    especificaciones: {
+      "Plataformas": "iOS 12+ y Android 8+",
+      "Funcionalidad Offline": "Sí, sincronización automática",
+      "Usuarios concurrentes": "Ilimitados",
+      "Integración CRM": "Salesforce, HubSpot, otros",
+      "Actualizaciones": "Vía App Store/Play Store",
+      "Desarrollo": "Nativo (Swift/Kotlin)"
+    },
+    tecnologias: ["React Native", "Swift", "Kotlin", "Firebase"],
+    disponible: true,
+    destacado: false,
+    tiempoEntrega: "3-6 semanas",
+    garantia: "6 meses",
+    slug: "app-movil-ventas"
+  },
+  {
+    id: 3,
+    nombre: "Dashboard Analytics Pro",
+    categoria: "Software",
+    precio: 1200,
+    precioOriginal: 1500,
+    moneda: "USD",
+    imagen: "/images/productos/dashboard-analytics.jpg",
+    imagenes: [
+      "/images/productos/dashboard-analytics-1.jpg",
+      "/images/productos/dashboard-analytics-2.jpg"
+    ],
+    descripcionCorta: "Visualización avanzada de datos con inteligencia artificial integrada.",
+    descripcionLarga: "Plataforma de business intelligence que convierte tus datos en insights accionables. Incluye machine learning para predicciones, visualizaciones interactivas y alertas automáticas cuando detecta patrones importantes en tu negocio.",
+    caracteristicas: [
+      "Visualizaciones interactivas",
+      "Machine Learning integrado",
+      "Alertas automáticas inteligentes",
+      "Conectores a 100+ fuentes de datos",
+      "Reportes programados",
+      "Colaboración en tiempo real"
+    ],
+    especificaciones: {
+      "Fuentes de datos": "100+ conectores nativos",
+      "Visualizaciones": "50+ tipos de gráficos",
+      "Exportación": "PDF, Excel, PowerPoint",
+      "API": "REST y GraphQL",
+      "Seguridad": "SSO, RBAC, encriptación",
+      "Escalabilidad": "Miles de usuarios concurrentes"
+    },
+    tecnologias: ["D3.js", "Python", "TensorFlow", "Elasticsearch"],
+    disponible: true,
+    destacado: true,
+    tiempoEntrega: "1-3 semanas",
+    garantia: "12 meses",
+    slug: "dashboard-analytics-pro"
+  },
+  {
+    id: 4,
+    nombre: "E-commerce Completo",
+    categoria: "Plataforma Web",
+    precio: 3500,
+    precioOriginal: 4200,
+    moneda: "USD",
+    imagen: "/images/productos/ecommerce-completo.jpg",
+    imagenes: [
+      "/images/productos/ecommerce-1.jpg",
+      "/images/productos/ecommerce-2.jpg",
+      "/images/productos/ecommerce-3.jpg",
+      "/images/productos/ecommerce-4.jpg"
+    ],
+    descripcionCorta: "Tienda online completa con panel de administración y pasarelas de pago.",
+    descripcionLarga: "Solución e-commerce completa que incluye tienda online responsive, panel de administración, gestión de inventario, múltiples pasarelas de pago, sistema de envíos, cupones de descuento y mucho más. Optimizada para SEO y conversiones.",
+    caracteristicas: [
+      "Diseño responsive y optimizado",
+      "Panel de administración completo",
+      "Múltiples pasarelas de pago",
+      "Gestión de inventario automática",
+      "Sistema de cupones y descuentos",
+      "SEO avanzado incluido",
+      "Integración con redes sociales",
+      "Analytics y reportes detallados"
+    ],
+    especificaciones: {
+      "Productos": "Ilimitados",
+      "Pasarelas de pago": "PayPal, Stripe, MercadoPago, más",
+      "Idiomas": "Multiidioma incluido",
+      "Monedas": "Soporte para múltiples monedas",
+      "Hosting": "1 año incluido",
+      "SSL": "Certificado incluido",
+      "Backup": "Diario automático"
+    },
+    tecnologias: ["Next.js", "Shopify API", "Stripe", "Vercel"],
+    disponible: true,
+    destacado: true,
+    tiempoEntrega: "4-8 semanas",
+    garantia: "12 meses",
+    slug: "ecommerce-completo"
+  },
+  {
+    id: 5,
+    nombre: "Chatbot Inteligente",
+    categoria: "IA & Automatización",
+    precio: 800,
+    precioOriginal: null,
+    moneda: "USD",
+    imagen: "/images/productos/chatbot-ia.jpg",
+    imagenes: [
+      "/images/productos/chatbot-1.jpg",
+      "/images/productos/chatbot-2.jpg"
+    ],
+    descripcionCorta: "Asistente virtual con IA para atención al cliente 24/7.",
+    descripcionLarga: "Chatbot inteligente entrenado específicamente para tu negocio que puede atender consultas de clientes, agendar citas, procesar pedidos simples y transferir conversaciones complejas a agentes humanos. Integración con WhatsApp, Facebook Messenger y tu sitio web.",
+    caracteristicas: [
+      "Procesamiento de lenguaje natural",
+      "Integración multi-canal",
+      "Entrenamiento personalizado",
+      "Transferencia a agentes humanos",
+      "Analytics de conversaciones",
+      "Disponibilidad 24/7"
+    ],
+    especificaciones: {
+      "Plataformas": "Web, WhatsApp, Facebook, Telegram",
+      "Idiomas": "Español, Inglés, personalizable",
+      "Integraciones": "CRM, sistemas de tickets",
+      "Entrenamiento": "Incluido en el precio",
+      "Mantenimiento": "3 meses incluidos",
+      "Analíticas": "Dashboard completo incluido"
+    },
+    tecnologias: ["OpenAI GPT", "Dialogflow", "Node.js", "WebSocket"],
+    disponible: true,
+    destacado: false,
+    tiempoEntrega: "2-3 semanas",
+    garantia: "6 meses",
+    slug: "chatbot-inteligente"
+  },
+  {
+    id: 6,
+    nombre: "Sistema de Reservas",
+    categoria: "Software",
+    precio: 1500,
+    precioOriginal: 1800,
+    moneda: "USD",
+    imagen: "/images/productos/sistema-reservas.jpg",
+    imagenes: [
+      "/images/productos/reservas-1.jpg",
+      "/images/productos/reservas-2.jpg",
+      "/images/productos/reservas-3.jpg"
+    ],
+    descripcionCorta: "Plataforma completa para gestionar citas, reservas y agenda digital.",
+    descripcionLarga: "Sistema especializado en gestión de citas y reservas para cualquier tipo de negocio. Incluye calendario inteligente, confirmaciones automáticas, recordatorios por email/SMS, pagos online y sincronización con Google Calendar.",
+    caracteristicas: [
+      "Calendario inteligente",
+      "Reservas online 24/7",
+      "Confirmaciones automáticas",
+      "Recordatorios por email/SMS",
+      "Pagos anticipados",
+      "Sincronización Google Calendar",
+      "Lista de espera automática",
+      "Reportes de ocupación"
+    ],
+    especificaciones: {
+      "Citas simultáneas": "Ilimitadas",
+      "Notificaciones": "Email, SMS, WhatsApp",
+      "Pagos": "Stripe, PayPal integrados",
+      "Calendario": "Sincronización bidireccional",
+      "Clientes": "Base de datos ilimitada",
+      "Reportes": "Exportación Excel/PDF",
+      "API": "Webhooks incluidos"
+    },
+    tecnologias: ["Vue.js", "Laravel", "MySQL", "Twilio"],
+    disponible: false,
+    destacado: false,
+    tiempoEntrega: "3-5 semanas",
+    garantia: "12 meses",
+    slug: "sistema-reservas"
+  }
+];
+
+// Categorías disponibles
+const categorias = ["Todas", ...new Set(productos.map(p => p.categoria))];
+
+// Función para formatear precio
+function formatPrice(precio: number, moneda: string = "USD") {
+  return new Intl.NumberFormat('es-PE', {
+    style: 'currency',
+    currency: moneda,
+    minimumFractionDigits: 0
+  }).format(precio);
+}
+---
+
+<Layout 
+  title="Productos - MiEmpresa" 
+  description="Descubre nuestros productos de software empresarial: sistemas de gestión, apps móviles, e-commerce y soluciones de IA"
+>
+  <Header />
+  
+  <main>
+    <!-- Hero Section -->
+    <section class="products-hero">
+      <div class="container">
+        <h1>Nuestros Productos</h1>
+        <p>Soluciones tecnológicas listas para impulsar tu negocio al siguiente nivel</p>
+      </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+      <div class="container">
+        <div class="filter-container">
+          <h3>Filtrar por categoría:</h3>
+          <div class="filter-buttons" id="categoryFilters">
+            {categorias.map((categoria) => (
+              <button 
+                class={`filter-btn ${categoria === 'Todas' ? 'active' : ''}`}
+                data-category={categoria}
+              >
+                {categoria}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Products Grid -->
+    <section class="products-section">
+      <div class="container">
+        <div class="products-grid" id="productsGrid">
+          {productos.map((producto) => (
+            <div 
+              class={`product-card ${!producto.disponible ? 'no-disponible' : ''}`}
+              data-category={producto.categoria}
+              data-product-id={producto.id}
+            >
+              {producto.destacado && (
+                <div class="product-badge">⭐ Destacado</div>
+              )}
+              
+              {!producto.disponible && (
+                <div class="product-badge unavailable">No disponible</div>
+              )}
+
+              <div class="product-image-container">
+                <img 
+                  src={producto.imagen} 
+                  alt={producto.nombre}
+                  class="product-image"
+                  loading="lazy"
+                />
+                <div class="product-overlay">
+                  <button class="quick-view-btn" data-product-id={producto.id}>
+                    👁️ Vista rápida
+                  </button>
+                </div>
+              </div>
+
+              <div class="product-info">
+                <div class="product-category">{producto.categoria}</div>
+                <h3 class="product-name">{producto.nombre}</h3>
+                <p class="product-description">{producto.descripcionCorta}</p>
+
+                <div class="product-features">
+                  <h4>Características principales:</h4>
+                  <ul>
+                    {producto.caracteristicas.slice(0, 3).map((caracteristica) => (
+                      <li>{caracteristica}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div class="product-meta">
+                  <div class="product-tech">
+                    <strong>Tecnologías:</strong>
+                    <div class="tech-tags">
+                      {producto.tecnologias.map((tech) => (
+                        <span class="tech-tag">{tech}</span>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div class="product-delivery">
+                    <span class="delivery-time">🚀 {producto.tiempoEntrega}</span>
+                    <span class="warranty">🛡️ Garantía {producto.garantia}</span>
+                  </div>
+                </div>
+
+                <div class="product-pricing">
+                  {producto.precioOriginal && (
+                    <span class="original-price">
+                      {formatPrice(producto.precioOriginal, producto.moneda)}
+                    </span>
+                  )}
+                  <span class="current-price">
+                    {formatPrice(producto.precio, producto.moneda)}
+                  </span>
+                  {producto.precioOriginal && (
+                    <span class="discount">
+                      -{Math.round((1 - producto.precio / producto.precioOriginal) * 100)}%
+                    </span>
+                  )}
+                </div>
+
+                <div class="product-actions">
+                  <button 
+                    class="btn-primary product-cta"
+                    data-product-id={producto.id}
+                    disabled={!producto.disponible}
+                  >
+                    {producto.disponible ? 'Solicitar cotización' : 'No disponible'}
+                  </button>
+                  <button 
+                    class="btn-secondary product-details"
+                    data-product-id={producto.id}
+                  >
+                    Ver detalles
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-content">
+          <h2>¿No encuentras lo que buscas?</h2>
+          <p>Desarrollamos soluciones personalizadas para necesidades específicas</p>
+          <div class="cta-buttons">
+            <a href="/contacto" class="btn-primary">Solicitar desarrollo personalizado</a>
+            <a href="/servicios" class="btn-secondary">Ver nuestros servicios</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal para vista rápida -->
+    <div id="productModal" class="modal">
+      <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <div id="modalContent">
+          <!-- El contenido se llenará dinámicamente -->
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <Footer />
+</Layout>
+
+<style>
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* Hero Section */
+  .products-hero {
+    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  .products-hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  .products-hero p {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Filter Section */
+  .filter-section {
+    background: #f8fafc;
+    padding: 2rem 0;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .filter-container {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-container h3 {
+    color: #1e293b;
+    margin: 0;
+    font-size: 1.1rem;
+  }
+
+  .filter-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    background: white;
+    border: 2px solid #e2e8f0;
+    color: #64748b;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 500;
+  }
+
+  .filter-btn:hover,
+  .filter-btn.active {
+    background: #2563eb;
+    border-color: #2563eb;
+    color: white;
+  }
+
+  /* Products Section */
+  .products-section {
+    padding: 3rem 0;
+    background: white;
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 2rem;
+  }
+
+  .product-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+    border: 1px solid #e2e8f0;
+  }
+
+  .product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .product-card.no-disponible {
+    opacity: 0.7;
+    filter: grayscale(0.3);
+  }
+
+  .product-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: #22c55e;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    z-index: 2;
+  }
+
+  .product-badge.unavailable {
+    background: #ef4444;
+  }
+
+  .product-image-container {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+  }
+
+  .product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .product-card:hover .product-image {
+    transform: scale(1.05);
+  }
+
+  .product-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .product-card:hover .product-overlay {
+    opacity: 1;
+  }
+
+  .quick-view-btn {
+    background: white;
+    color: #1e293b;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .quick-view-btn:hover {
+    background: #2563eb;
+    color: white;
+  }
+
+  .product-info {
+    padding: 1.5rem;
+  }
+
+  .product-category {
+    color: #2563eb;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+  }
+
+  .product-name {
+    color: #1e293b;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+  }
+
+  .product-description {
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .product-features {
+    margin-bottom: 1rem;
+  }
+
+  .product-features h4 {
+    color: #1e293b;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .product-features ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .product-features li {
+    color: #64748b;
+    font-size: 0.85rem;
+    margin-bottom: 0.25rem;
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .product-features li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #22c55e;
+    font-weight: bold;
+  }
+
+  .product-meta {
+    margin-bottom: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #f1f5f9;
+  }
+
+  .product-tech {
+    margin-bottom: 1rem;
+  }
+
+  .product-tech strong {
+    color: #1e293b;
+    font-size: 0.85rem;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tech-tag {
+    background: #e0f2fe;
+    color: #0369a1;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .product-delivery {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .delivery-time,
+  .warranty {
+    color: #64748b;
+    font-size: 0.8rem;
+  }
+
+  .product-pricing {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .original-price {
+    color: #94a3b8;
+    text-decoration: line-through;
+    font-size: 0.9rem;
+  }
+
+  .current-price {
+    color: #1e293b;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .discount {
+    background: #fef3c7;
+    color: #d97706;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .product-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    text-align: center;
+    flex: 1;
+    min-width: 120px;
+  }
+
+  .btn-primary {
+    background: #2563eb;
+    color: white;
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+  }
+
+  .btn-primary:disabled {
+    background: #94a3b8;
+    cursor: not-allowed;
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: #2563eb;
+    border: 2px solid #2563eb;
+  }
+
+  .btn-secondary:hover {
+    background: #2563eb;
+    color: white;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  .cta-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .cta-content p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .cta-buttons .btn-primary,
+  .cta-buttons .btn-secondary {
+    padding: 1rem 2rem;
+    flex: none;
+    min-width: auto;
+  }
+
+  .cta-buttons .btn-secondary {
+    background: transparent;
+    color: white;
+    border-color: white;
+  }
+
+  .cta-buttons .btn-secondary:hover {
+    background: white;
+    color: #1e293b;
+  }
+
+  /* Modal */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  .modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 2rem;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 80%;
+    overflow-y: auto;
+    position: relative;
+  }
+
+  .modal-close {
+    color: #aaa;
+    float: right;
+    font-size: 2rem;
+    font-weight: bold;
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    cursor: pointer;
+  }
+
+  .modal-close:hover {
+    color: #000;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .products-hero h1 {
+      font-size: 2rem;
+    }
+
+    .products-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .filter-container {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .product-actions {
+      flex-direction: column;
+    }
+
+    .product-pricing {
+      justify-content: flex-start;
+    }
+
+    .container {
+      padding: 0 1rem;
+    }
+
+    .modal-content {
+      margin: 10% auto;
+      padding: 1rem;
+      width: 95%;
+    }
+  }
+
+  /* Hiding/showing products based on filter */
+  .product-card.hidden {
+    display: none;
+  }
+</style>
+
+<script>
+  // Datos de productos (para el modal)
+  const productosData = {productos};
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Filter functionality
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const productCards = document.querySelectorAll('.product-card');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Remove active class from all buttons
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        // Add active class to clicked button
+        button.classList.add('active');
+        
+        const category = button.getAttribute('data-category');
+        
+        // Show/hide products based on category
+        productCards.forEach(card => {
+          if (category === 'Todas' || card.getAttribute('data-category') === category) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    // Modal functionality
+    const modal = document.getElementById('productModal');
+    const modalContent = document.getElementById('modalContent');
+    const closeModal = document.querySelector('.modal-close');
+    const quickViewButtons = document.querySelectorAll('.quick-view-btn');
+    const detailButtons = document.querySelectorAll('.product-details');
+
+    // Quick view functionality
+    quickViewButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const productId = parseInt(button.getAttribute('data-product-id'));
+        showProductModal(productId);
+      });
+    });
+
+    // Detail view functionality
+    detailButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const productId = parseInt(button.getAttribute('data-product-id'));
+        showProductModal(productId, true);
+      });
+    });
+
+    // CTA button functionality
+    const ctaButtons = document.querySelectorAll('.product-cta');
+    ctaButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const productId = button.getAttribute('data-product-id');
+        
+        // Redirect to contact page with product pre-selected
+        window.location.href = `/contacto?producto=${productId}`;
+      });
+    });
+
+    // Close modal functionality
+    closeModal.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+
+    // Function to show product modal
+    function showProductModal(productId, showFullDetails = false) {
+      const producto = productosData.find(p => p.id === productId);
+      if (!producto) return;
+
+      const formatPrice = (precio, moneda = "USD") => {
+        return new Intl.NumberFormat('es-PE', {
+          style: 'currency',
+          currency: moneda,
+          minimumFractionDigits: 0
+        }).format(precio);
+      };
+
+      const modalHTML = `
+        <div class="modal-product">
+          <h2>${producto.nombre}</h2>
+          <div class="modal-product-content">
+            <div class="modal-product-images">
+              <img src="${producto.imagen}" alt="${producto.nombre}" class="modal-main-image">
+              ${producto.imagenes.length > 1 ? `
+                <div class="modal-thumbnail-container">
+                  ${producto.imagenes.map(img => `
+                    <img src="${img}" alt="${producto.nombre}" class="modal-thumbnail" onclick="changeMainImage('${img}')">
+                  `).join('')}
+                </div>
+              ` : ''}
+            </div>
+            
+            <div class="modal-product-info">
+              <div class="modal-category">${producto.categoria}</div>
+              
+              <div class="modal-pricing">
+                ${producto.precioOriginal ? `
+                  <span class="modal-original-price">${formatPrice(producto.precioOriginal, producto.moneda)}</span>
+                ` : ''}
+                <span class="modal-current-price">${formatPrice(producto.precio, producto.moneda)}</span>
+                ${producto.precioOriginal ? `
+                  <span class="modal-discount">-${Math.round((1 - producto.precio / producto.precioOriginal) * 100)}%</span>
+                ` : ''}
+              </div>
+
+              <p class="modal-description">
+                ${showFullDetails ? producto.descripcionLarga : producto.descripcionCorta}
+              </p>
+
+              <div class="modal-features">
+                <h4>Características principales:</h4>
+                <ul>
+                  ${producto.caracteristicas.map(c => `<li>${c}</li>`).join('')}
+                </ul>
+              </div>
+
+              ${showFullDetails ? `
+                <div class="modal-specifications">
+                  <h4>Especificaciones técnicas:</h4>
+                  <div class="specs-grid">
+                    ${Object.entries(producto.especificaciones).map(([key, value]) => `
+                      <div class="spec-item">
+                        <strong>${key}:</strong> ${value}
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+              ` : ''}
+
+              <div class="modal-tech">
+                <h4>Tecnologías:</h4>
+                <div class="modal-tech-tags">
+                  ${producto.tecnologias.map(tech => `
+                    <span class="modal-tech-tag">${tech}</span>
+                  `).join('')}
+                </div>
+              </div>
+
+              <div class="modal-meta">
+                <div class="modal-delivery">🚀 Tiempo de entrega: ${producto.tiempoEntrega}</div>
+                <div class="modal-warranty">🛡️ Garantía: ${producto.garantia}</div>
+              </div>
+
+              <div class="modal-actions">
+                <button class="btn-primary modal-cta" ${!producto.disponible ? 'disabled' : ''}>
+                  ${producto.disponible ? 'Solicitar cotización' : 'No disponible'}
+                </button>
+                ${!showFullDetails ? `
+                  <button class="btn-secondary" onclick="showProductModal(${productId}, true)">
+                    Ver detalles completos
+                  </button>
+                ` : ''}
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      modalContent.innerHTML = modalHTML;
+      modal.style.display = 'block';
+
+      // Add event listener to the modal CTA button
+      const modalCta = modalContent.querySelector('.modal-cta');
+      if (modalCta && producto.disponible) {
+        modalCta.addEventListener('click', () => {
+          modal.style.display = 'none';
+          window.location.href = `/contacto?producto=${productId}`;
+        });
+      }
+    }
+
+    // Make showProductModal global for onclick handlers
+    window.showProductModal = showProductModal;
+
+    // Function to change main image
+    window.changeMainImage = function(imageSrc) {
+      const mainImage = document.querySelector('.modal-main-image');
+      if (mainImage) {
+        mainImage.src = imageSrc;
+      }
+    };
+
+    // Add smooth scroll behavior for better UX
+    const productCards2 = document.querySelectorAll('.product-card');
+    productCards2.forEach(card => {
+      card.addEventListener('click', () => {
+        // If clicked on the card itself (not buttons), scroll to top
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    });
+  });
+</script>
+
+<style>
+  /* Modal specific styles */
+  .modal-product h2 {
+    color: #1e293b;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    padding-right: 3rem;
+  }
+
+  .modal-product-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .modal-product-images {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .modal-main-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .modal-thumbnail-container {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+  }
+
+  .modal-thumbnail {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+  }
+
+  .modal-thumbnail:hover {
+    opacity: 1;
+  }
+
+  .modal-category {
+    color: #2563eb;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 1rem;
+  }
+
+  .modal-pricing {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .modal-original-price {
+    color: #94a3b8;
+    text-decoration: line-through;
+    font-size: 1rem;
+  }
+
+  .modal-current-price {
+    color: #1e293b;
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  .modal-discount {
+    background: #fef3c7;
+    color: #d97706;
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .modal-description {
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .modal-features {
+    margin-bottom: 1.5rem;
+  }
+
+  .modal-features h4,
+  .modal-specifications h4,
+  .modal-tech h4 {
+    color: #1e293b;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+  }
+
+  .modal-features ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .modal-features li {
+    color: #64748b;
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .modal-features li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #22c55e;
+    font-weight: bold;
+  }
+
+  .modal-specifications {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: #f8fafc;
+    border-radius: 8px;
+  }
+
+  .specs-grid {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .spec-item {
+    color: #64748b;
+    font-size: 0.9rem;
+  }
+
+  .spec-item strong {
+    color: #1e293b;
+  }
+
+  .modal-tech {
+    margin-bottom: 1.5rem;
+  }
+
+  .modal-tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .modal-tech-tag {
+    background: #e0f2fe;
+    color: #0369a1;
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .modal-meta {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: #f1f5f9;
+    border-radius: 8px;
+  }
+
+  .modal-delivery,
+  .modal-warranty {
+    color: #64748b;
+    margin-bottom: 0.5rem;
+  }
+
+  .modal-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .modal-actions .btn-primary,
+  .modal-actions .btn-secondary {
+    flex: 1;
+    min-width: 150px;
+  }
+
+  /* Responsive modal */
+  @media (max-width: 768px) {
+    .modal-product-content {
+      grid-template-columns: 1fr;
+    }
+
+    .modal-main-image {
+      height: 250px;
+    }
+
+    .modal-actions {
+      flex-direction: column;
+    }
+
+    .modal-actions .btn-primary,
+    .modal-actions .btn-secondary {
+      flex: none;
+    }
+  }
+
+  /* Add placeholder image styling for missing images */
+  .product-image,
+  .modal-main-image,
+  .modal-thumbnail {
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+    font-size: 3rem;
+  }
+
+  .product-image::before,
+  .modal-main-image::before,
+  .modal-thumbnail::before {
+    content: "🖼️";
+  }
+</style>
