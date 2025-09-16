@@ -1,0 +1,599 @@
+---
+// src/pages/servicios.astro
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+// Datos de servicios - podrías moverlos a un archivo separado después
+const servicios = [
+  {
+    id: 1,
+    titulo: "Consultoría Empresarial",
+    descripcion: "Asesoramiento estratégico para optimizar procesos y aumentar la eficiencia de tu negocio.",
+    caracteristicas: [
+      "Análisis de procesos actuales",
+      "Identificación de oportunidades de mejora",
+      "Plan estratégico personalizado",
+      "Seguimiento y evaluación de resultados"
+    ],
+    precio: "Desde $500",
+    duracion: "2-4 semanas",
+    icono: "🎯"
+  },
+  {
+    id: 2,
+    titulo: "Desarrollo de Software",
+    descripcion: "Soluciones tecnológicas a medida para automatizar y digitalizar tu empresa.",
+    caracteristicas: [
+      "Aplicaciones web personalizadas",
+      "Sistemas de gestión empresarial",
+      "APIs y microservicios",
+      "Mantenimiento y soporte técnico"
+    ],
+    precio: "Desde $2,000",
+    duracion: "1-3 meses",
+    icono: "💻"
+  },
+  {
+    id: 3,
+    titulo: "Transformación Digital",
+    descripcion: "Te ayudamos a modernizar tu empresa con las últimas tecnologías digitales.",
+    caracteristicas: [
+      "Migración a la nube",
+      "Automatización de procesos",
+      "Integración de sistemas",
+      "Capacitación del personal"
+    ],
+    precio: "Desde $1,500",
+    duracion: "1-2 meses",
+    icono: "🚀"
+  },
+  {
+    id: 4,
+    titulo: "Soporte Técnico",
+    descripcion: "Acompañamiento continuo para mantener tus sistemas funcionando perfectamente.",
+    caracteristicas: [
+      "Soporte 24/7",
+      "Monitoreo proactivo",
+      "Actualizaciones de seguridad",
+      "Backup y recuperación"
+    ],
+    precio: "Desde $300/mes",
+    duracion: "Continuo",
+    icono: "🛠️"
+  },
+  {
+    id: 5,
+    titulo: "Marketing Digital",
+    descripcion: "Estrategias digitales para aumentar tu presencia online y generar más ventas.",
+    caracteristicas: [
+      "Diseño de sitios web",
+      "SEO y posicionamiento",
+      "Gestión de redes sociales",
+      "Campañas publicitarias"
+    ],
+    precio: "Desde $800",
+    duracion: "1-6 meses",
+    icono: "📈"
+  },
+  {
+    id: 6,
+    titulo: "Análisis de Datos",
+    descripcion: "Convertimos tus datos en insights valiosos para la toma de decisiones.",
+    caracteristicas: [
+      "Dashboards interactivos",
+      "Reportes automatizados",
+      "Análisis predictivo",
+      "Visualización de datos"
+    ],
+    precio: "Desde $1,200",
+    duracion: "2-6 semanas",
+    icono: "📊"
+  }
+];
+
+// Información sobre nuestro proceso
+const proceso = [
+  {
+    paso: 1,
+    titulo: "Consulta Inicial",
+    descripcion: "Analizamos tus necesidades y objetivos",
+    icono: "🤝"
+  },
+  {
+    paso: 2,
+    titulo: "Propuesta Personalizada",
+    descripcion: "Diseñamos una solución a tu medida",
+    icono: "📋"
+  },
+  {
+    paso: 3,
+    titulo: "Desarrollo e Implementación",
+    descripcion: "Ejecutamos el proyecto con calidad",
+    icono: "⚡"
+  },
+  {
+    paso: 4,
+    titulo: "Entrega y Soporte",
+    descripcion: "Te acompañamos después de la entrega",
+    icono: "✅"
+  }
+];
+---
+
+<Layout 
+  title="Servicios - MiEmpresa" 
+  description="Descubre nuestros servicios de consultoría, desarrollo de software y transformación digital para hacer crecer tu negocio"
+>
+  <Header />
+  
+  <main>
+    <!-- Hero Section -->
+    <section class="services-hero">
+      <div class="container">
+        <h1>Nuestros Servicios</h1>
+        <p>Soluciones integrales para hacer crecer tu negocio con tecnología de vanguardia</p>
+      </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="services-section">
+      <div class="container">
+        <h2>¿Qué podemos hacer por ti?</h2>
+        
+        <div class="services-grid">
+          {servicios.map((servicio) => (
+            <div class="service-card" data-service-id={servicio.id}>
+              <div class="service-icon">{servicio.icono}</div>
+              <h3>{servicio.titulo}</h3>
+              <p class="service-description">{servicio.descripcion}</p>
+              
+              <ul class="service-features">
+                {servicio.caracteristicas.map((caracteristica) => (
+                  <li>{caracteristica}</li>
+                ))}
+              </ul>
+              
+              <div class="service-meta">
+                <div class="service-price">{servicio.precio}</div>
+                <div class="service-duration">⏱️ {servicio.duracion}</div>
+              </div>
+              
+              <button class="service-cta">
+                Más información
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process-section">
+      <div class="container">
+        <h2>Nuestro Proceso de Trabajo</h2>
+        <p class="process-intro">
+          Seguimos una metodología probada para garantizar el éxito de tu proyecto
+        </p>
+        
+        <div class="process-grid">
+          {proceso.map((etapa, index) => (
+            <div class="process-step">
+              <div class="step-number">{etapa.paso}</div>
+              <div class="step-icon">{etapa.icono}</div>
+              <h3>{etapa.titulo}</h3>
+              <p>{etapa.descripcion}</p>
+              
+              {index < proceso.length - 1 && (
+                <div class="step-connector">→</div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-content">
+          <h2>¿Listo para comenzar tu proyecto?</h2>
+          <p>Contáctanos hoy mismo y recibe una consulta gratuita</p>
+          <div class="cta-buttons">
+            <a href="/contacto" class="btn-primary">Contactar ahora</a>
+            <a href="tel:+51999999999" class="btn-secondary">Llamar: +51 999 999 999</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+      <div class="container">
+        <h2>Preguntas Frecuentes</h2>
+        
+        <div class="faq-grid">
+          <div class="faq-item">
+            <h3>¿Cuánto tiempo toma un proyecto típico?</h3>
+            <p>Depende del alcance, pero la mayoría de proyectos se completan entre 2-12 semanas.</p>
+          </div>
+          
+          <div class="faq-item">
+            <h3>¿Ofrecen soporte después de la entrega?</h3>
+            <p>Sí, incluimos 3 meses de soporte gratuito y ofrecemos planes de mantenimiento extendido.</p>
+          </div>
+          
+          <div class="faq-item">
+            <h3>¿Trabajan con empresas de cualquier tamaño?</h3>
+            <p>Absolutamente. Tenemos soluciones para startups, PYMEs y grandes empresas.</p>
+          </div>
+          
+          <div class="faq-item">
+            <h3>¿Cómo determinan el precio de un proyecto?</h3>
+            <p>Basamos nuestros precios en el alcance, complejidad y tiempo estimado. Ofrecemos cotizaciones transparentes.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</Layout>
+
+<style>
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* Hero Section */
+  .services-hero {
+    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  .services-hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  .services-hero p {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Services Section */
+  .services-section {
+    padding: 5rem 0;
+    background: #f8fafc;
+  }
+
+  .services-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #1e293b;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .service-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    border: 1px solid #e2e8f0;
+  }
+
+  .service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .service-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .service-card h3 {
+    color: #1e293b;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .service-description {
+    color: #64748b;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .service-features {
+    list-style: none;
+    margin-bottom: 2rem;
+  }
+
+  .service-features li {
+    padding: 0.5rem 0;
+    color: #475569;
+    position: relative;
+    padding-left: 1.5rem;
+  }
+
+  .service-features li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #22c55e;
+    font-weight: bold;
+  }
+
+  .service-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  .service-price {
+    font-weight: 700;
+    color: #2563eb;
+    font-size: 1.1rem;
+  }
+
+  .service-duration {
+    color: #64748b;
+    font-size: 0.9rem;
+  }
+
+  .service-cta {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 100%;
+  }
+
+  .service-cta:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+  }
+
+  /* Process Section */
+  .process-section {
+    padding: 5rem 0;
+    background: white;
+  }
+
+  .process-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #1e293b;
+  }
+
+  .process-intro {
+    text-align: center;
+    color: #64748b;
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    position: relative;
+  }
+
+  .process-step {
+    text-align: center;
+    position: relative;
+  }
+
+  .step-number {
+    width: 3rem;
+    height: 3rem;
+    background: #2563eb;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin: 0 auto 1rem;
+  }
+
+  .step-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .process-step h3 {
+    color: #1e293b;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .process-step p {
+    color: #64748b;
+    line-height: 1.6;
+  }
+
+  .step-connector {
+    position: absolute;
+    top: 1.5rem;
+    right: -1rem;
+    font-size: 1.5rem;
+    color: #cbd5e1;
+    font-weight: bold;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+    color: white;
+    padding: 4rem 0;
+  }
+
+  .cta-content {
+    text-align: center;
+  }
+
+  .cta-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .cta-content p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary, .btn-secondary {
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+  }
+
+  .btn-primary {
+    background: #2563eb;
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+  }
+
+  .btn-secondary:hover {
+    background: white;
+    color: #1e293b;
+  }
+
+  /* FAQ Section */
+  .faq-section {
+    padding: 5rem 0;
+    background: #f8fafc;
+  }
+
+  .faq-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #1e293b;
+  }
+
+  .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .faq-item {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .faq-item h3 {
+    color: #1e293b;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .faq-item p {
+    color: #64748b;
+    line-height: 1.6;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .services-hero h1 {
+      font-size: 2rem;
+    }
+
+    .services-hero p {
+      font-size: 1rem;
+    }
+
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .process-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .step-connector {
+      display: none;
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      padding: 0 1rem;
+    }
+  }
+</style>
+
+<script>
+  // Agregar interactividad simple para los botones de servicio
+  document.addEventListener('DOMContentLoaded', () => {
+    const serviceButtons = document.querySelectorAll('.service-cta');
+    
+    serviceButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        const serviceCard = e.target.closest('.service-card');
+        const serviceId = serviceCard?.getAttribute('data-service-id');
+        
+        // Redirigir a contacto con el servicio preseleccionado
+        window.location.href = `/contacto?servicio=${serviceId}`;
+      });
+    });
+  });
+</script>
